@@ -12,6 +12,12 @@ struct StrideApp: App {
     var body: some Scene {
         WindowGroup {
             SignInView()
+                .onOpenURL { url in
+                    let callback = AuthorizationManager()
+                    callback.handleCallBackURL(url)
+                }
+//            MapView()
+            
         }
     }
 }

@@ -28,5 +28,7 @@
 	</dict>
 	<key>AppDelegate</key>
 	<string>SpotifyAPI</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow Stride to track your speed in order to accurately find songs</string>
 </dict>
 </plist>

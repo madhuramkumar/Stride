@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SignInView.swift
 //  Stride
 //
 //  Created by Madhu Ramkumar on 5/11/23.
@@ -23,10 +23,8 @@ struct SignInView: View {
                 .padding()
             Button(action: {
                 print("sign up bin tapped")
-                let spotify = SpotifyAPI()
-                spotify.authorize { result in
-                }
-                
+                let spotify = AuthorizationManager()
+                spotify.authorize()
 
             }) {
                 Text("Sign In with Spotify")

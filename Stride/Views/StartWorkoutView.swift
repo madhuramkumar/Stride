@@ -57,7 +57,10 @@ struct StartWorkoutView: View {
 
             Button(action: {
                 print("button pressed")
+                api.generateSeedGenres()
+                api.generateSeedTracks()
                 api.generateSeedArtists()
+                api.getSongRecommendations()
             }) {
                 Text("Start Workout")
                     .frame(minWidth: 0, maxWidth: 200)

@@ -729,8 +729,8 @@
             filePath = "Stride/APICalls.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "generateSeedArtists()"
             landmarkType = "7">
             <Locations>
@@ -764,6 +764,51 @@
                   endingLineNumber = "56"
                   offsetFromSymbolStart = "296">
                </Location>
+               <Location
+                  uuid = "DEC5B883-3A26-47FA-A217-E6E72C0DB92A - d7fd6f23e9b147a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APICalls.generateSeedArtists() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "3032">
+               </Location>
+               <Location
+                  uuid = "DEC5B883-3A26-47FA-A217-E6E72C0DB92A - 2fed8b85dc0d80cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APICalls.generateSeedArtists() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "296">
+               </Location>
+               <Location
+                  uuid = "DEC5B883-3A26-47FA-A217-E6E72C0DB92A - 2fed8b85dc0d8385"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APICalls.generateSeedArtists() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "296">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -771,14 +816,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "0E695906-8DC0-4056-BEE8-E38867CCEEE6"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stride/APICalls.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "generateSeedArtists()"
             landmarkType = "7">
             <Locations>
@@ -812,6 +857,66 @@
                   endingLineNumber = "77"
                   offsetFromSymbolStart = "1268">
                </Location>
+               <Location
+                  uuid = "0E695906-8DC0-4056-BEE8-E38867CCEEE6 - d7fd6f23e9b1427c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APICalls.generateSeedArtists() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "2276">
+               </Location>
+               <Location
+                  uuid = "0E695906-8DC0-4056-BEE8-E38867CCEEE6 - d7fd6f23e9b1427c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APICalls.generateSeedArtists() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "1268">
+               </Location>
+               <Location
+                  uuid = "0E695906-8DC0-4056-BEE8-E38867CCEEE6 - d7fd6f23e9b1433a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APICalls.generateSeedArtists() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "1268">
+               </Location>
+               <Location
+                  uuid = "0E695906-8DC0-4056-BEE8-E38867CCEEE6 - d7fd6f23e9b1433a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APICalls.generateSeedArtists() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "604">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -829,6 +934,38 @@
             endingLineNumber = "19"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "EC89E9C6-B27D-421F-BA2A-785348D28B04 - 3d759cb594ecd01a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Stride.StartWorkoutView in Stride.StrideApp.body.getter : some"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/StrideApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "EC89E9C6-B27D-421F-BA2A-785348D28B04 - b313314b654d0527"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onOpenURL(perform: (Foundation.URL) -&gt; ()) -&gt; some&gt;&gt;.0 in Stride.StrideApp.body.getter : some"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/StrideApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "304">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -845,6 +982,54 @@
             endingLineNumber = "60"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A7F3BCB-562D-4964-905B-3A4E27B931A9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/APICalls.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "getSongRecommendations()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8A7F3BCB-562D-4964-905B-3A4E27B931A9 - bf081cb0af990f8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APICalls.getSongRecommendations() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "231"
+                  endingLineNumber = "231"
+                  offsetFromSymbolStart = "508">
+               </Location>
+               <Location
+                  uuid = "8A7F3BCB-562D-4964-905B-3A4E27B931A9 - bf081cb0af990df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APICalls.getSongRecommendations() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/APICalls.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "232"
+                  endingLineNumber = "232"
+                  offsetFromSymbolStart = "528">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -6,7 +6,6 @@
 //
 
 import CoreLocationUI
-import HealthKit
 import CoreMotion
 import MapKit
 import SwiftUI

@@ -35,6 +35,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         }
     }
     
+    // deals with different LocationAuthorization cases
     func checkLocationAuthorization() {
         guard let locationManager = locationManager else { return }
         
@@ -54,6 +55,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         }
     }
     
+    // called first time user gives authorization (first use of app) and everytime user changes authorization status
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
@@ -75,8 +77,9 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         }
     }
     
+    // prints error if location manager catches a fail
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print (error.localizedDescription)
+        print (error)
     }
     
 }

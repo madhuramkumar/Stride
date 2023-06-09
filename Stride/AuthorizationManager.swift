@@ -7,25 +7,32 @@
 
 import SwiftUI
 import Foundation
-import SpotifyiOS
+//import SpotifyiOS
 
 enum AuthConstants {
     static let clientID = "YOUR_CLIENT_ID"
     static let clientSecret = "YOUR_CLIENT_SECRET"
     static let redirectURI = "Stride://"
     static let state = String(UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(16))
-    static let scope = "user-read-private user-read-email app-remote-control streaming playlist-read-private playlist-modify-public user-library-modify"
+    static let scope = "user-read-private user-read-email app-remote-control streaming playlist-read-private playlist-modify-public user-library-modify user-top-read"
 }
 
-struct AccessDetails: Codable {
+struct RefreshToken: Codable, Hashable {
+    var refresh_token: String
+}
+
+struct AccessToken: Codable, Hashable {
     var access_token: String
     var token_type: String
     var scope: String
     var expires_in: Int
-    var refresh_token: String
 }
 
 class AuthorizationManager: ObservableObject {
+    
+    static let authManager = AuthorizationManager()
+    var refreshToken: RefreshToken? = nil
+    var accessToken: AccessToken? = nil
 
     func authorize() {
         // Define the URL with parameters
@@ -42,13 +49,15 @@ class AuthorizationManager: ObservableObject {
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
-    
+        
+        // opens url to allow user to give authorization to access Spotify info
         UIApplication.shared.open(url, options: [:])
     }
     
-    func handleCallBackURL(_ url: URL) {
+    func requestAccessAndRefreshTokens(_ url: URL) {
         let authCode = extractCode(from: url)
         let currentState = extractState(from: url)
+        
         if (authCode == nil) { // complete error handling here
             print("User authorization failed.")
         }
@@ -59,7 +68,7 @@ class AuthorizationManager: ObservableObject {
             return // check this
         } else {
             // create URL
-            guard let url = URL(string: "https://accounts.spotify.com/token") else {
+            guard let url = URL(string: "https://accounts.spotify.com/api/token") else {
                 print("Invalid URL")
                 return
             }
@@ -68,31 +77,86 @@ class AuthorizationManager: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "POST" // method
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type") // header
-            let base64encoded = "\(AuthConstants.clientID):\(AuthConstants.clientSecret)".data(using: .isoLatin1)?.base64EncodedString() ?? ""  // base 64 encode the client ID and the client secret
-            request.addValue("Basic \(base64encoded)", forHTTPHeaderField: "Authorization") // header
-            let body: [String: AnyHashable] = [ // body
-                "grant_type": "authorization_code",
-                "code": authCode,
-                "redirect_uri": AuthConstants.redirectURI
+            let base64encoded = "Basic \((AuthConstants.clientID + ":" + AuthConstants.clientSecret).data(using: .utf8)!.base64EncodedString())"  // base 64 encode the client ID and the client secret
+            request.addValue(base64encoded, forHTTPHeaderField: "Authorization") // header
+            var bodyComponents = URLComponents()
+            bodyComponents.queryItems = [// body
+                URLQueryItem(name: "grant_type", value: "authorization_code"),
+                URLQueryItem(name: "code", value: authCode),
+                URLQueryItem(name: "redirect_uri", value: AuthConstants.redirectURI)
             ]
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+            request.httpBody = bodyComponents.query?.data(using: .utf8)
             
             // Make POST Request
-            let task = URLSession.shared.dataTask(with: request) {data, _, error in
+            let task = URLSession.shared.dataTask(with: request) {data, response, error in
+                if let data = data {
+                    if let dataString = String(data: data, encoding: .utf8) {
+                        print("got dataString: \n\(dataString)")
+                    }
+                }
                 guard let data = data, error == nil else {
+                    print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+            
+                // assigns response JSON to AccessDetails struct
+                guard let access = try? JSONDecoder().decode(AccessToken.self, from: data) else {
+                    print("Error Decoding Access Details from JSON")
                     return
                 }
                 
-                do {
-                    let response = try JSONDecoder().decode(AccessDetails.self, from: data) // store values in AccessDetails struct
-                    print("SUCCESS: \(response)")
+                self.accessToken = access
+                
+                // puts refresh token in seperate struct
+                guard let refresh = try? JSONDecoder().decode(RefreshToken.self, from: data) else {
+                    print("Error Decoding Refresh Token from JSON")
+                    return
                 }
-                catch {
-                    print(error)
-                }
+                        
+                self.refreshToken = refresh
+                print("refresh token is \(String(describing: self.refreshToken))")
             }
             task.resume()
         }
+    }
+    
+    // must be called before an hour passes, as access token only lasts for one hour
+    func refreshAuthentication() {
+        guard let url = URL(string: "https://accounts.spotify.com/api/token") else {
+            print("Invalid URL")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST" // method
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type") // header
+        var bodyComponents = URLComponents()
+        bodyComponents.queryItems = [// body
+            URLQueryItem(name: "grant_type", value: "refresh_token"),
+            URLQueryItem(name: "refresh_token", value: refreshToken?.refresh_token)
+        ]
+        request.httpBody = bodyComponents.query?.data(using: .utf8)
+        
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            if let data = data {
+                if let dataString = String(data: data, encoding: .utf8) {
+                    print("got dataString: \n\(dataString)")
+                }
+            }
+            guard let data = data, error == nil else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+        
+            // assigns response JSON to AccessDetails struct
+            guard let access = try? JSONDecoder().decode(AccessToken.self, from: data) else {
+                print("Error Decoding JSON")
+                return
+            }
+            
+            self.accessToken = access
+            
+        }
+        task.resume()
     }
 
     func extractCode(from url: URL) -> String? {

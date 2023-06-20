@@ -7,14 +7,13 @@
 
 import SwiftUI
 import Foundation
-//import SpotifyiOS
 
 enum AuthConstants {
     static let clientID = "YOUR_CLIENT_ID"
     static let clientSecret = "YOUR_CLIENT_SECRET"
     static let redirectURI = "Stride://"
     static let state = String(UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(16))
-    static let scope = "user-read-private user-read-email app-remote-control streaming playlist-read-private playlist-modify-private playlist-modify-public user-library-modify user-top-read"
+    static let scope = "user-read-private user-read-email app-remote-control streaming playlist-read-private playlist-modify-private playlist-modify-public user-library-modify user-top-read user-read-playback-state user-modify-playback-state"
 }
 
 struct RefreshToken: Codable, Hashable {
@@ -28,13 +27,17 @@ struct AccessToken: Codable, Hashable {
     var expires_in: Int
 }
 
+struct Auth: Codable, Hashable {
+    var accessToken: String
+    var refreshToken: String
+}
+
 class AuthorizationManager: ObservableObject {
     
     static let authManager = AuthorizationManager()
-    var refreshToken: RefreshToken? = nil
-    var accessToken: AccessToken? = nil
+    @Published var tokenExpirationTime: Date?
 
-    func authorize() {
+    func login() {
         // Define the URL with parameters
         var urlComponents = URLComponents(string: "https://accounts.spotify.com/authorize")!
         urlComponents.queryItems = [
@@ -60,6 +63,7 @@ class AuthorizationManager: ObservableObject {
         
         if (authCode == nil) { // complete error handling here
             print("User authorization failed.")
+            return
         }
         
         if (currentState != AuthConstants.state) { // checks that states match to make sure app hasnt been tampered with
@@ -105,19 +109,33 @@ class AuthorizationManager: ObservableObject {
                     return
                 }
                 
-                self.accessToken = access
-                
                 // puts refresh token in seperate struct
                 guard let refresh = try? JSONDecoder().decode(RefreshToken.self, from: data) else {
                     print("Error Decoding Refresh Token from JSON")
                     return
                 }
-                        
-                self.refreshToken = refresh
-                print("refresh token is \(String(describing: self.refreshToken))")
+                // create object that has access and refresh token and save in keychain
+                let auth = Auth(accessToken: access.access_token, refreshToken: refresh.refresh_token)
+                
+                // add object to keychain and update expiration date
+                KeychainManager.standard.save(auth, service: KeychainManager.standard.service, account: KeychainManager.standard.account)
+                self.updateTokenExpiration()
             }
             task.resume()
         }
+    }
+    
+    func updateTokenExpiration() {
+        self.tokenExpirationTime = Date().addingTimeInterval(TimeInterval(3600))
+    }
+    
+    func isTokenExpired() -> Bool {
+        guard let expirationDate = tokenExpirationTime else {
+            return true
+        }
+        
+        let currentTime = Date()
+        return currentTime >= expirationDate
     }
     
     // must be called before an hour passes, as access token only lasts for one hour
@@ -128,14 +146,20 @@ class AuthorizationManager: ObservableObject {
         }
         var request = URLRequest(url: url)
         request.httpMethod = "POST" // method
+        let base64encoded = "Basic \((AuthConstants.clientID + ":" + AuthConstants.clientSecret).data(using: .utf8)!.base64EncodedString())"  // base 64 encode the client ID and the client secret
+        request.addValue(base64encoded, forHTTPHeaderField: "Authorization") // header
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type") // header
         var bodyComponents = URLComponents()
+        
+        // read refresh token from keychain
+        let keychain = KeychainManager.standard.read(service: KeychainManager.standard.service, account: KeychainManager.standard.account, type: Auth.self)!
+        
         bodyComponents.queryItems = [// body
             URLQueryItem(name: "grant_type", value: "refresh_token"),
-            URLQueryItem(name: "refresh_token", value: refreshToken?.refresh_token)
+            URLQueryItem(name: "refresh_token", value: keychain.refreshToken)
         ]
         request.httpBody = bodyComponents.query?.data(using: .utf8)
-        
+    
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
             if let data = data {
                 if let dataString = String(data: data, encoding: .utf8) {
@@ -153,11 +177,14 @@ class AuthorizationManager: ObservableObject {
                 return
             }
             
-            self.accessToken = access
-            
+            let auth = Auth(accessToken: access.access_token, refreshToken: keychain.refreshToken)
+            // add object to keychain and update expiration date
+            KeychainManager.standard.save(auth, service: KeychainManager.standard.service, account: KeychainManager.standard.account)
+            self.updateTokenExpiration()
         }
         task.resume()
     }
+
 
     func extractCode(from url: URL) -> String? {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
@@ -176,7 +203,7 @@ class AuthorizationManager: ObservableObject {
               let stateItem = queryItems.first(where: { $0.name == "state" }) else {
             return nil
         }
-        
+
         return stateItem.value
     }
 }

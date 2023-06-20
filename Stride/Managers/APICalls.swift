@@ -5,7 +5,7 @@
 //  Created by Madhu Ramkumar on 5/31/23.
 //
 
-import SpotifyiOS
+//import SpotifyiOS
 import Foundation
 import SwiftUI
 
@@ -39,11 +39,6 @@ struct UserTopTracks: Codable {
     var items: [TrackObject]
 }
 
-struct Error: Codable {
-    var status: Int
-    var message: String
-}
-
 struct Genres: Codable {
     var genres: [String]
 }
@@ -57,8 +52,20 @@ struct UserInfo: Codable {
     
 }
 
+struct DeviceObject: Hashable, Codable {
+    var id: String
+    var is_active: Bool
+    var is_restricted: Bool
+    var type: String
+}
+
+struct Error: Codable {
+    var status: Int
+    var message: String
+}
+
 class APICalls: ObservableObject {
-    let token = "BQBp0yOgXsx8V9LBcs0P4I8LZgK3m8Rw46sYo59iEkjhXZs9Lu8HpqaDobHf26Jsi1z16w8VYK0zLUW-nYf0g4uDhs5z6aiNzJsbrfOnv5mJMZeKaSfL02jOWTn8p2HhQGz5wtvesaYBDfSZJ9MgK5iILYYhkFdLkrV4pwns41_ddy2h7LZDGYa5nHfF_9hmtyTYvAKCazLOt6ef7POa15vOwXlExc5Z9rB7BgflMbrEjIPrvZwzC68kKk5Adr0cfAo8uxz0YIsjgNCvSM1VgSzZN_U5qjCpLg"
+    var token = KeychainManager.standard.read(service: KeychainManager.standard.service, account: KeychainManager.standard.account, type: Auth.self)!.accessToken
     
     // updated in StartWorkoutView
     @Published var minBPM = ""
@@ -72,14 +79,65 @@ class APICalls: ObservableObject {
     @Published var recommendedTracks = ""
     @Published var userID = ""
     
+    // playback info
+    @Published var availableDevices: [DeviceObject]?
+    
+    func fetchAPI(_ endpoint: String, _ method: String) -> URLRequest {
+        
+        if (AuthorizationManager.authManager.isTokenExpired()) {
+            AuthorizationManager.authManager.refreshAuthentication()
+        }
+        
+        let url = URL(string: "https://api.spotify.com/v1/\(endpoint)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func getAvailableDevices() {
+        let request = fetchAPI("me/player/devices", "GET")
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            
+            // print out data for debugging purposes
+            if let data = data {
+                if let dataString = String(data: data, encoding: .utf8) {
+                    print("got dataString: \n\(dataString)")
+                }
+            }
 
+            guard let data = data, error == nil else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            
+            if let response = response as? HTTPURLResponse {
+                if (response.statusCode == 200) {
+                    // assigns response JSON to UserTopArtists struct
+                    guard let devices = try? JSONDecoder().decode([DeviceObject].self, from: data) else {
+                        print("Error Decoding Device Details from JSON")
+                        return
+                    }
+                    self.availableDevices = devices
+                } else if (response.statusCode == 401) {
+                    print("Access token expired")
+                } else {
+                    guard let errorInfo = try? JSONDecoder().decode(Error.self, from: data) else {
+                        print("Error decoding error message details from JSON")
+                        return
+                    }
+                    print (errorInfo.message)
+                }
+            }
+        }
+        task.resume()
+    }
+    
     // generates seed artists for getRecommendations endpoint based on users top artists
     func generateSeedArtists() {
-        guard let url = URL(string: "https://api.spotify.com/v1/me/top/artists") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+        let request = fetchAPI("me/top/artists", "GET")
+        let task = URLSession.shared.dataTask(with: request ) {data, response, error in
             
 //            // print out data for debugging purposes
 //            if let data = data {
@@ -102,8 +160,7 @@ class APICalls: ObservableObject {
                     }
                     self.convertSeedArtistsToString(topArtists.items)
                 } else if (response.statusCode == 401) {
-                    AuthorizationManager.authManager.refreshAuthentication()
-                    // self.generateSeedArtists()
+                    print("Access token expired.")
                 } else {
                     guard let errorInfo = try? JSONDecoder().decode(Error.self, from: data) else {
                         print("Error decoding error message details from JSON")
@@ -126,18 +183,15 @@ class APICalls: ObservableObject {
 
     // generates seed tracks for getRecommendations endpoint based on users top tracks
     func generateSeedTracks() {
-        guard let url = URL(string: "https://api.spotify.com/v1/me/top/tracks") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let request = fetchAPI("me/top/tracks", "GET")
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
             
-//            // print out data for debugging purposes
-//            if let data = data {
-//                if let dataString = String(data: data, encoding: .utf8) {
-//                    print("got dataString: \n\(dataString)")
-//                }
-//            }
+            // print out data for debugging purposes
+            if let data = data {
+                if let dataString = String(data: data, encoding: .utf8) {
+                    print("got dataString: \n\(dataString)")
+                }
+            }
             
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
@@ -154,8 +208,7 @@ class APICalls: ObservableObject {
                     self.convertSeedTracksToString(topTracks.items)
                     
                 } else if (response.statusCode == 401) {
-                    AuthorizationManager.authManager.refreshAuthentication()
-                    // self.generateSeedArtists()
+                    print("Access Token expired.")
                 } else {
                     guard let errorInfo = try? JSONDecoder().decode(Error.self, from: data) else {
                         print("Error decoding error message details from JSON")
@@ -176,10 +229,7 @@ class APICalls: ObservableObject {
     }
     
     func generateSeedGenres() {
-        guard let url = URL(string: "https://api.spotify.com/v1/recommendations/available-genre-seeds") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let request = fetchAPI("recommendations/available-genre-seeds", "GET")
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
               
 //            // print out data for debugging purposes
@@ -204,8 +254,7 @@ class APICalls: ObservableObject {
                     self.convertSeedGenresToString(genreArray.genres)
                     
                 } else if (response.statusCode == 401) {
-                AuthorizationManager.authManager.refreshAuthentication()
-                    // self.generateSeedArtists()
+                    print("Access token expired.")
                 } else {
                     guard let errorInfo = try? JSONDecoder().decode(Error.self, from: data) else {
                         print("Error decoding error message details from JSON")
@@ -229,7 +278,7 @@ class APICalls: ObservableObject {
     func getSongRecommendations() {
         
         // create URL for API request
-        var urlComponents = URLComponents(string: "https://api.spotify.com/v1/recommendations/available-genre-seeds")!
+        var urlComponents = URLComponents(string: "https://api.spotify.com/v1/recommendations")!
         urlComponents.queryItems = [// body
             URLQueryItem(name: "seed_artists", value: seedArtists),
             URLQueryItem(name: "seed_genres", value: seedGenres),
@@ -269,8 +318,7 @@ class APICalls: ObservableObject {
                     self.convertRecommendedTracksToString(recommendations.tracks)
                     
                 } else if (response.statusCode == 401) {
-                AuthorizationManager.authManager.refreshAuthentication()
-                    // self.generateSeedArtists()
+                    print("Access token expired")
                 } else {
                     guard let errorInfo = try? JSONDecoder().decode(Error.self, from: data) else {
                         print("Error decoding error message details from JSON")
@@ -290,10 +338,7 @@ class APICalls: ObservableObject {
     }
     
     func getUserID() {
-        guard let url = URL(string: "https://api.spotify.com/v1/me") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let request = fetchAPI("me", "GET")
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
 
             // print out data for debugging purposes
@@ -318,8 +363,7 @@ class APICalls: ObservableObject {
                     self.userID = user.id
 
                 } else if (response.statusCode == 401) {
-                AuthorizationManager.authManager.refreshAuthentication()
-                    // self.generateSeedArtists()
+                    print("Access token expired.")
                 } else {
                     guard let errorInfo = try? JSONDecoder().decode(Error.self, from: data) else {
                         print("Error decoding error message details from JSON")
@@ -330,7 +374,92 @@ class APICalls: ObservableObject {
             }
         }
         task.resume()
+    }
+    
+    // PLAYBACK FUNCTIONS
+    func startPlayback() {
+        var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/play")!
+        urlComponents.queryItems = [// body
+            URLQueryItem(name: "device_id", value: "155444755d6ec1e3fa30c669da878ef5046d4fb1"),
+        ] // have to supply the iphone device id, otherwise it wont play
+        guard let url = urlComponents.url else {
+            fatalError("Missing URL!")
+        }
+        
+        // create API Request
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body: [String: Any] = ["uris": ["spotify:track:5VA4Ispp52EA1sOqzMz3Av"], "position_ms": 0] // change this to recommended URIS
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            print("playback started")
+        }
+        task.resume()
+    }
+    
+    // when workout ended automatically or by user, end playlist
+    func pausePlayback() {
+        var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/pause")!
+        urlComponents.queryItems = [// body
+            URLQueryItem(name: "device_id", value: "155444755d6ec1e3fa30c669da878ef5046d4fb1"),
+        ] // have to supply the iphone device id, otherwise it wont play
+        guard let url = urlComponents.url else {
+            fatalError("Missing URL!")
+        }
+        
+        // create API Request
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            print("playback paused")
+        }
+        task.resume()
+    }
 
+    func skipToPrevious() {
+        var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/previous")!
+        urlComponents.queryItems = [// body
+            URLQueryItem(name: "device_id", value: "155444755d6ec1e3fa30c669da878ef5046d4fb1"),
+        ] // have to supply the iphone device id, otherwise it wont play
+        guard let url = urlComponents.url else {
+            fatalError("Missing URL!")
+        }
+        
+        // create API Request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            print("skip to previous")
+        }
+        task.resume()
+    }
+    
+    func skipToNext() {
+        var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/next")!
+        urlComponents.queryItems = [// body
+            URLQueryItem(name: "device_id", value: "155444755d6ec1e3fa30c669da878ef5046d4fb1"),
+        ] // have to supply the iphone device id, otherwise it wont play
+        guard let url = urlComponents.url else {
+            fatalError("Missing URL!")
+        }
+        
+        // create API Request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            print("skip to next")
+        }
+        task.resume()
+    }
+    
+    // can be used to make progress bar / scrubber
+    func getPlaybackState() {
+        
     }
 
     // create playlist of recommended songs whose length = specified workout time
@@ -338,16 +467,6 @@ class APICalls: ObservableObject {
 
 
 
-    }
-
-    // when workout started, play playlist
-    func playSong() {
-
-    }
-    
-    // when workout ended automatically or by user, end playlist
-    func endSong() {
-        
     }
     
     // invoked if user agrees to save playlist to libary after workout finishes

@@ -24,7 +24,7 @@ struct SignInView: View {
             Button(action: {
                 print("sign up bin tapped")
                 let spotify = AuthorizationManager.authManager
-                spotify.authorize()
+                spotify.login()
             }) {
                 Text("Sign In with Spotify")
                     .frame(minWidth: 0, maxWidth: 200)

@@ -14,9 +14,9 @@ struct SongView {
 }
 
 struct MusicPlayerView: View {
-    @State var isPlaying: Bool = false;
-    let api = APICalls()
+    let api = APIManager()
     var body: some View {
+        @State var runStarted: Bool = false
         VStack {
             Text("Song Name")
                 .font(.largeTitle)
@@ -32,8 +32,8 @@ struct MusicPlayerView: View {
                     Image(systemName: "arrow.left.circle").resizable()
                 }).frame(width: 70, height: 70, alignment: .center).foregroundColor(Color.black.opacity(0.2))
                     .offset(x: -30)
-                Button(action: api.startPlayback, label: {
-                    Image(systemName: isPlaying ? "pause.circle.fill": "play.circle.fill").resizable()
+                Button(action: AppState.shared.isPlaying ? api.pausePlayback: api.startPlayback, label: {
+                    Image(systemName: AppState.shared.isPlaying ? "pause.circle.fill": "play.circle.fill").resizable()
                 }).frame(width: 70, height: 70, alignment: .center)
                 
                 Button(action: api.skipToNext, label: {
@@ -41,9 +41,31 @@ struct MusicPlayerView: View {
                 }).frame(width: 70, height: 70, alignment: .center)
                     .offset(x: 30)
             }
+            Button(action: {
+                if runStarted {
+                    api.pausePlayback()
+                    AppState.shared.runComplete = true
+                } else {
+                    runStarted = true
+                    api.startPlayback()
+                }
+            }) {
+                Text(runStarted ? "Stop Run": "Start Run")
+                    .frame(minWidth: 0, maxWidth: 200)
+                    .font(.system(size: 18))
+                    .padding()
+                    .foregroundColor(.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    .background(runStarted ? Color.red: Color.green )
+                    .cornerRadius(25)
+                    .offset(y: 40)
+            }
+            .offset(y: 10)
         }
-        .offset(y: 160)
-    
+        .offset(y: 180)
     }
 }
 

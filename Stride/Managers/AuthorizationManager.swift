@@ -33,7 +33,6 @@ struct Auth: Codable, Hashable {
 }
 
 class AuthorizationManager: ObservableObject {
-    
     static let authManager = AuthorizationManager()
     @Published var tokenExpirationTime: Date?
 
@@ -120,6 +119,10 @@ class AuthorizationManager: ObservableObject {
                 // add object to keychain and update expiration date
                 KeychainManager.standard.save(auth, service: KeychainManager.standard.service, account: KeychainManager.standard.account)
                 self.updateTokenExpiration()
+                
+                DispatchQueue.main.async {
+                    AppState.shared.oauthComplete = true
+                }
             }
             task.resume()
         }
@@ -181,6 +184,10 @@ class AuthorizationManager: ObservableObject {
             // add object to keychain and update expiration date
             KeychainManager.standard.save(auth, service: KeychainManager.standard.service, account: KeychainManager.standard.account)
             self.updateTokenExpiration()
+            
+            DispatchQueue.main.async {
+                AppState.shared.oauthComplete = true
+            }
         }
         task.resume()
     }

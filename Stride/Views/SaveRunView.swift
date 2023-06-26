@@ -8,8 +8,52 @@
 import SwiftUI
 
 struct SaveRunView: View {
+    let api = APIManager()
+    @StateObject var appState = AppState.shared
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Would you like to save this workout playlist to your library?")
+            HStack {
+                Button(action: {
+                    print("playlist saved to spotify library")
+                    api.createPlaylist()
+                    DispatchQueue.main.async {
+                        appState.saveRunComplete = true
+                    }
+                }) {
+                    Text("Yes")
+                        .frame(minWidth: 0, maxWidth: 200)
+                        .font(.system(size: 18))
+                        .padding()
+                        .foregroundColor(.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.white, lineWidth: 2)
+                        )
+                }
+                .background(Color.green)
+                .cornerRadius(25)
+            }
+            
+            Button(action: {
+                print("playlist not saved")
+                DispatchQueue.main.async {
+                    appState.saveRunComplete = true
+                }
+            }) {
+                Text("No")
+                    .frame(minWidth: 0, maxWidth: 200)
+                    .font(.system(size: 18))
+                    .padding()
+                    .foregroundColor(.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+            }
+            .background(Color.red)
+            .cornerRadius(25)
+        }
     }
 }
 

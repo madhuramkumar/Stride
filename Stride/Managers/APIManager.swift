@@ -1,5 +1,5 @@
 //
-//  APICalls.swift
+//  APIManager.swift
 //  Stride
 //
 //  Created by Madhu Ramkumar on 5/31/23.
@@ -67,7 +67,7 @@ struct Error: Codable {
 
 class APIManager: ObservableObject {
     static let shared = APIManager()
-    var token = KeychainManager.standard.read(service: KeychainManager.standard.service, account: KeychainManager.standard.account, type: Auth.self)!.accessToken
+    var token = KeychainManager.standard.read(service: KeychainManager.standard.service, account: KeychainManager.standard.account, type: Auth.self)?.accessToken
     
     // updated in StartWorkoutView
     @Published var minBPM = ""
@@ -126,8 +126,7 @@ class APIManager: ObservableObject {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-            
-            
+
             if let response = response as? HTTPURLResponse {
                 if (response.statusCode == 200) {
                     // assigns response JSON to UserTopArtists struct
@@ -301,8 +300,12 @@ class APIManager: ObservableObject {
         }
         
     }
-//
+
 //    func numSongs() -> Double {
+//        if (workoutTime == "") {
+//            fatalError("workout time did not initialize!!")
+//        }
+//
 //        let num = round(Double(workoutTime)! / 3.5)
 //        if num <= 100 {
 //            return num

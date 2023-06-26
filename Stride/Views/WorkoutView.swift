@@ -1,11 +1,14 @@
 //
-//  MusicPlayerView.swift
+//  WorkoutView.swift
 //  Stride
 //
 //  Created by Madhu Ramkumar on 5/27/23.
 //
 
 import SwiftUI
+import CoreLocationUI
+import CoreMotion
+import MapKit
 
 struct SongView {
     var name: String?
@@ -13,10 +16,25 @@ struct SongView {
     var albumImage: Image
 }
 
+struct WorkoutView: View {
+    var body: some View {
+        VStack {
+            MapView()
+                .padding()
+                .frame(minWidth: 0, maxWidth: 400, minHeight: 0, maxHeight: 450)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(.white, lineWidth: 4)
+                )
+            MusicPlayerView()
+        }
+    }
+}
+
 struct MusicPlayerView: View {
     let api = APIManager()
+    @StateObject var appState = AppState.shared
     var body: some View {
-        @State var runStarted: Bool = false
         VStack {
             Text("Song Name")
                 .font(.largeTitle)
@@ -32,7 +50,7 @@ struct MusicPlayerView: View {
                     Image(systemName: "arrow.left.circle").resizable()
                 }).frame(width: 70, height: 70, alignment: .center).foregroundColor(Color.black.opacity(0.2))
                     .offset(x: -30)
-                Button(action: AppState.shared.isPlaying ? api.pausePlayback: api.startPlayback, label: {
+                Button(action: appState.isPlaying ? api.pausePlayback: api.startPlayback, label: {
                     Image(systemName: AppState.shared.isPlaying ? "pause.circle.fill": "play.circle.fill").resizable()
                 }).frame(width: 70, height: 70, alignment: .center)
                 
@@ -42,15 +60,19 @@ struct MusicPlayerView: View {
                     .offset(x: 30)
             }
             Button(action: {
-                if runStarted {
+                if appState.runStarted {
                     api.pausePlayback()
-                    AppState.shared.runComplete = true
+                    DispatchQueue.main.async {
+                        appState.runComplete = true
+                    }
                 } else {
-                    runStarted = true
                     api.startPlayback()
+                    DispatchQueue.main.async {
+                        appState.runStarted = true
+                    }
                 }
             }) {
-                Text(runStarted ? "Stop Run": "Start Run")
+                Text(appState.runStarted ? "Stop Run": "Start Run")
                     .frame(minWidth: 0, maxWidth: 200)
                     .font(.system(size: 18))
                     .padding()
@@ -59,18 +81,35 @@ struct MusicPlayerView: View {
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color.white, lineWidth: 2)
                     )
-                    .background(runStarted ? Color.red: Color.green )
+                    .background(appState.runStarted ? Color.red: Color.green )
                     .cornerRadius(25)
-                    .offset(y: 40)
+                    .offset(y: 10)
             }
-            .offset(y: 10)
         }
-        .offset(y: 180)
     }
 }
 
-struct MusicPlayerView_Previews: PreviewProvider {
+struct MapView: View {
+    @StateObject private var viewModel = MapViewModel()
+    
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            Map(coordinateRegion: $viewModel.region, showsUserLocation: true) // binds region variable
+                .ignoresSafeArea() // gets rid of map white space at top and bottom
+                .tint(.red) // color of location marker
+            
+            // when map view opens, location authorization automatically begins
+            .onAppear(perform: {
+                viewModel.checkIfLocationServicesIsEnabled()
+            })
+            Text(String(describing: viewModel.speed))
+                
+        }
+    }
+}
+
+struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
-        MusicPlayerView()
+        WorkoutView()
     }
 }

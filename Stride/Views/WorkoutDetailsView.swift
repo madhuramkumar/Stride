@@ -1,5 +1,5 @@
 //
-//  StartWorkoutView.swift
+//  WorkoutDetailsView.swift
 //  Stride
 //
 //  Created by Madhu Ramkumar on 5/27/23.
@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct StartWorkoutView: View {
+struct WorkoutDetailsView: View {
     @StateObject private var api = APIManager()
+    @StateObject var appState = AppState.shared
     var body: some View {
         VStack {
             VStack {
@@ -40,12 +41,14 @@ struct StartWorkoutView: View {
                 Section {
                     Button(action: {
                         print("button pressed")
-                        AppState.shared.inputDetailsComplete = true
                         api.getiPhoneDeviceID()
-                        api.generateSeedGenres()
-                        api.generateSeedTracks()
-                        api.generateSeedArtists()
-                        api.getSongRecommendations()
+//                        api.generateSeedGenres()
+//                        api.generateSeedTracks()
+//                        api.generateSeedArtists()
+//                        api.getSongRecommendations()
+                        DispatchQueue.main.async {
+                            appState.inputDetailsComplete = true
+                        }
                     }) {
                         Text("Start Workout")
                             .frame(minWidth: 0, maxWidth: 200)
@@ -69,8 +72,8 @@ struct StartWorkoutView: View {
     }
 }
 
-struct StartWorkoutView_Previews: PreviewProvider {
+struct WorkoutDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        StartWorkoutView()
+            WorkoutDetailsView()
     }
 }

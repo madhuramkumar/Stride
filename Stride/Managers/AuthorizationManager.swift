@@ -34,6 +34,9 @@ struct Auth: Codable, Hashable {
 
 class AuthorizationManager: ObservableObject {
     static let authManager = AuthorizationManager()
+    var appState = AppState.shared
+    
+    @Published var token: String = ""
     @Published var tokenExpirationTime: Date?
 
     func login() {
@@ -90,6 +93,10 @@ class AuthorizationManager: ObservableObject {
             ]
             request.httpBody = bodyComponents.query?.data(using: .utf8)
             
+            print("\(request.httpMethod!) \(request.url!)")
+            print(request.allHTTPHeaderFields!)
+            print(String(data: request.httpBody ?? Data(), encoding: .utf8)!)
+            
             // Make POST Request
             let task = URLSession.shared.dataTask(with: request) {data, response, error in
                 if let data = data {
@@ -115,30 +122,21 @@ class AuthorizationManager: ObservableObject {
                 }
                 // create object that has access and refresh token and save in keychain
                 let auth = Auth(accessToken: access.access_token, refreshToken: refresh.refresh_token)
+                let expiration =  Date().addingTimeInterval(TimeInterval(access.expires_in))
                 
                 // add object to keychain and update expiration date
+                self.token = auth.accessToken
+                self.tokenExpirationTime = expiration
                 KeychainManager.standard.save(auth, service: KeychainManager.standard.service, account: KeychainManager.standard.account)
-                self.updateTokenExpiration()
-                
-                DispatchQueue.main.async {
-                    AppState.shared.oauthComplete = true
-                }
+                KeychainManager.standard.save(expiration, service: KeychainManager.standard.service2, account: KeychainManager.standard.account)
+                self.appState.oauthComplete = true
             }
             task.resume()
         }
     }
     
-    func updateTokenExpiration() {
-        self.tokenExpirationTime = Date().addingTimeInterval(TimeInterval(3600))
-    }
-    
     func isTokenExpired() -> Bool {
-        guard let expirationDate = tokenExpirationTime else {
-            return true
-        }
-        
-        let currentTime = Date()
-        return currentTime >= expirationDate
+        return Date() >= tokenExpirationTime ?? KeychainManager.standard.read(service: KeychainManager.standard.service2, account: KeychainManager.standard.account, type: Date.self)!
     }
     
     // must be called before an hour passes, as access token only lasts for one hour
@@ -162,31 +160,35 @@ class AuthorizationManager: ObservableObject {
             URLQueryItem(name: "refresh_token", value: keychain.refreshToken)
         ]
         request.httpBody = bodyComponents.query?.data(using: .utf8)
+        
+        print("\(request.httpMethod!) \(request.url!)")
+        print(request.allHTTPHeaderFields!)
+        print(String(data: request.httpBody ?? Data(), encoding: .utf8)!)
     
-        let task = URLSession.shared.dataTask(with: request) {data, response, error in
-            if let data = data {
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data, error == nil {
                 if let dataString = String(data: data, encoding: .utf8) {
                     print("got dataString: \n\(dataString)")
                 }
-            }
-            guard let data = data, error == nil else {
+                
+                // assigns response JSON to AccessDetails struct
+                guard let access = try? JSONDecoder().decode(AccessToken.self, from: data) else {
+                    print("Error Decoding JSON")
+                    return
+                }
+                let auth = Auth(accessToken: access.access_token, refreshToken: keychain.refreshToken)
+                let expiration =  Date().addingTimeInterval(TimeInterval(access.expires_in))
+                
+                // add object to keychain and update expiration date
+                self.token = auth.accessToken
+                self.tokenExpirationTime = expiration
+                KeychainManager.standard.save(auth, service: KeychainManager.standard.service, account: KeychainManager.standard.account)
+                KeychainManager.standard.save(expiration, service: KeychainManager.standard.service2, account: KeychainManager.standard.account)
+                DispatchQueue.main.async {
+                    self.appState.oauthComplete = true
+                }
+            } else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-        
-            // assigns response JSON to AccessDetails struct
-            guard let access = try? JSONDecoder().decode(AccessToken.self, from: data) else {
-                print("Error Decoding JSON")
-                return
-            }
-            
-            let auth = Auth(accessToken: access.access_token, refreshToken: keychain.refreshToken)
-            // add object to keychain and update expiration date
-            KeychainManager.standard.save(auth, service: KeychainManager.standard.service, account: KeychainManager.standard.account)
-            self.updateTokenExpiration()
-            
-            DispatchQueue.main.async {
-                AppState.shared.oauthComplete = true
             }
         }
         task.resume()

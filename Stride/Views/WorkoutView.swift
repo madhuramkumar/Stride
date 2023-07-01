@@ -32,7 +32,7 @@ struct WorkoutView: View {
 }
 
 struct MusicPlayerView: View {
-    let api = APIManager()
+    let api = APIManager.shared
     @StateObject var appState = AppState.shared
     var body: some View {
         VStack {
@@ -50,20 +50,21 @@ struct MusicPlayerView: View {
                     Image(systemName: "arrow.left.circle").resizable()
                 }).frame(width: 70, height: 70, alignment: .center).foregroundColor(Color.black.opacity(0.2))
                     .offset(x: -30)
-                Button(action: appState.isPlaying ? api.pausePlayback: api.startPlayback, label: {
+                Button(action: appState.isPlaying ? api.pausePlayback: api.resumePlayback, label: {
                     Image(systemName: AppState.shared.isPlaying ? "pause.circle.fill": "play.circle.fill").resizable()
                 }).frame(width: 70, height: 70, alignment: .center)
-                
+
                 Button(action: api.skipToNext, label: {
                     Image(systemName: "arrow.right.circle").resizable()
                 }).frame(width: 70, height: 70, alignment: .center)
                     .offset(x: 30)
             }
+            .disabled(!appState.runStarted)
             Button(action: {
                 if appState.runStarted {
                     api.pausePlayback()
                     DispatchQueue.main.async {
-                        appState.runComplete = true
+                        appState.runStopped = true
                     }
                 } else {
                     api.startPlayback()
@@ -91,19 +92,19 @@ struct MusicPlayerView: View {
 
 struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
-    
+
     var body: some View {
         ZStack(alignment: .bottom) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true) // binds region variable
                 .ignoresSafeArea() // gets rid of map white space at top and bottom
                 .tint(.red) // color of location marker
-            
+
             // when map view opens, location authorization automatically begins
             .onAppear(perform: {
                 viewModel.checkIfLocationServicesIsEnabled()
             })
             Text(String(describing: viewModel.speed))
-                
+
         }
     }
 }

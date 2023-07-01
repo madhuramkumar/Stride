@@ -12,6 +12,8 @@ final class KeychainManager {
     let account = "spotify"
     let service = "token"
     
+    let service2 = "expirationDate"
+    
     // singleton
     static let standard = KeychainManager()
     private init() {}

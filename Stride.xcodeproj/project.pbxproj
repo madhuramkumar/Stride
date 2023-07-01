@@ -10,7 +10,6 @@
 		29B6724D2A282710008A4C22 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B6724C2A282710008A4C22 /* APIManager.swift */; };
 		29B672542A290A40008A4C22 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672532A290A40008A4C22 /* LocationManager.swift */; };
 		29B672562A2A6616008A4C22 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672552A2A6616008A4C22 /* AuthorizationManager.swift */; };
-		29B672592A2A6BF7008A4C22 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672582A2A6BF7008A4C22 /* WorkoutSession.swift */; };
 		29B672652A3500C0008A4C22 /* CacheEntryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672642A3500C0008A4C22 /* CacheEntryObject.swift */; };
 		29B672672A350161008A4C22 /* CacheImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672662A350161008A4C22 /* CacheImplementation.swift */; };
 		29B672692A3BFB75008A4C22 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672682A3BFB75008A4C22 /* KeychainManager.swift */; };
@@ -349,7 +348,6 @@
 				29B6724D2A282710008A4C22 /* APIManager.swift in Sources */,
 				29BA75142A22E72A00ADA280 /* WorkoutView.swift in Sources */,
 				29B672762A4A2EE8008A4C22 /* LandingPageView.swift in Sources */,
-				29B672592A2A6BF7008A4C22 /* WorkoutSession.swift in Sources */,
 				29B672652A3500C0008A4C22 /* CacheEntryObject.swift in Sources */,
 				29B672562A2A6616008A4C22 /* AuthorizationManager.swift in Sources */,
 				29BA74CB2A0DEF8300ADA280 /* StrideApp.swift in Sources */,

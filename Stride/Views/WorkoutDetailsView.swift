@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WorkoutDetailsView: View {
-    @StateObject private var api = APIManager()
+    @StateObject private var api = APIManager.shared
     @StateObject var appState = AppState.shared
     var body: some View {
         VStack {
@@ -41,14 +41,8 @@ struct WorkoutDetailsView: View {
                 Section {
                     Button(action: {
                         print("button pressed")
-                        api.getiPhoneDeviceID()
-//                        api.generateSeedGenres()
-//                        api.generateSeedTracks()
-//                        api.generateSeedArtists()
-//                        api.getSongRecommendations()
-                        DispatchQueue.main.async {
-                            appState.inputDetailsComplete = true
-                        }
+                        api.gatherData() // func that generates seed artists, tracks, and genres as well as recommendations
+                        appState.inputDetailsComplete = true
                     }) {
                         Text("Start Workout")
                             .frame(minWidth: 0, maxWidth: 200)

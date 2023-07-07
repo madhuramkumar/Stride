@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29A6A8422A54E1DF009C9570 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A8412A54E1DF009C9570 /* PlayerManager.swift */; };
-		29A6A8442A568F1A009C9570 /* AuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A8432A568F1A009C9570 /* AuthConstants.swift */; };
+		29A6A8462A58B306009C9570 /* AuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A8452A58B306009C9570 /* AuthConstants.swift */; };
 		29B6724D2A282710008A4C22 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B6724C2A282710008A4C22 /* APIManager.swift */; };
 		29B672542A290A40008A4C22 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672532A290A40008A4C22 /* LocationManager.swift */; };
 		29B672562A2A6616008A4C22 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672552A2A6616008A4C22 /* AuthorizationManager.swift */; };
@@ -64,7 +64,7 @@
 
 /* Begin PBXFileReference section */
 		29A6A8412A54E1DF009C9570 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
-		29A6A8432A568F1A009C9570 /* AuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConstants.swift; sourceTree = "<group>"; };
+		29A6A8452A58B306009C9570 /* AuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConstants.swift; sourceTree = "<group>"; };
 		29B6724C2A282710008A4C22 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		29B672532A290A40008A4C22 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		29B672552A2A6616008A4C22 /* AuthorizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
@@ -143,8 +143,8 @@
 		29B672612A35007B008A4C22 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				29A6A8452A58B306009C9570 /* AuthConstants.swift */,
 				29B672552A2A6616008A4C22 /* AuthorizationManager.swift */,
-				29A6A8432A568F1A009C9570 /* AuthConstants.swift */,
 				29B672682A3BFB75008A4C22 /* KeychainManager.swift */,
 				29B672532A290A40008A4C22 /* LocationManager.swift */,
 				29B6724C2A282710008A4C22 /* APIManager.swift */,
@@ -346,7 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29A6A8442A568F1A009C9570 /* AuthConstants.swift in Sources */,
+				29A6A8462A58B306009C9570 /* AuthConstants.swift in Sources */,
 				29B672692A3BFB75008A4C22 /* KeychainManager.swift in Sources */,
 				29B672742A49F848008A4C22 /* SaveRunView.swift in Sources */,
 				29BA74CD2A0DEF8300ADA280 /* SignInView.swift in Sources */,

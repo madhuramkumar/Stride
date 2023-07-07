@@ -8,14 +8,6 @@
 import SwiftUI
 import Foundation
 
-enum AuthConstants {
-    static let clientID = "YOUR_CLIENT_ID"
-    static let clientSecret = "YOUR_CLIENT_SECRET"
-    static let redirectURI = "Stride://"
-    static let state = String(UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(16))
-    static let scope = "user-read-private user-read-email app-remote-control streaming playlist-read-private playlist-modify-private playlist-modify-public user-library-modify user-top-read user-read-playback-state user-modify-playback-state"
-}
-
 struct RefreshToken: Codable, Hashable {
     var refresh_token: String
 }

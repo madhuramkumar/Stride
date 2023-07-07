@@ -41,6 +41,7 @@ struct WorkoutDetailsView: View {
                 Section {
                     Button(action: {
                         print("button pressed")
+                        api.resetAllVariables() // make sure that state is reset
                         api.gatherData() // func that generates seed artists, tracks, and genres as well as recommendations
                         appState.inputDetailsComplete = true
                     }) {

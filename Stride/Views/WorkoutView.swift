@@ -9,22 +9,26 @@ import SwiftUI
 import CoreLocationUI
 import CoreMotion
 import MapKit
+import SpotifyiOS
 
-struct SongView {
-    var name: String?
-    var artist: String?
-    var albumImage: Image
+struct TrackDetails: Hashable, Codable {
+    var name: String
+    var artist: String
 }
-
 struct WorkoutView: View {
+    @State var appRemote: SPTAppRemote?
+    let api = APIManager.shared
     var body: some View {
         VStack {
+            Text("Enjoy your personalized workout.")
+                .font(.headline)
+                .foregroundColor(Color.red)
             MapView()
                 .padding()
                 .frame(minWidth: 0, maxWidth: 400, minHeight: 0, maxHeight: 450)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(.white, lineWidth: 4)
+                        .stroke(.red, lineWidth: 4)
                 )
             MusicPlayerView()
         }
@@ -36,12 +40,12 @@ struct MusicPlayerView: View {
     @StateObject var appState = AppState.shared
     var body: some View {
         VStack {
-            Text("Song Name")
+            Text("Track Name Loading...")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .foregroundColor(Color.black)
                 .padding(0.5)
-            Text("Song Artist")
+            Text("Artist Name Loading...")
                 .font(.subheadline)
                 .fontWeight(.heavy)
                 .foregroundColor(Color.gray)
@@ -50,6 +54,7 @@ struct MusicPlayerView: View {
                     Image(systemName: "arrow.left.circle").resizable()
                 }).frame(width: 70, height: 70, alignment: .center).foregroundColor(Color.black.opacity(0.2))
                     .offset(x: -30)
+                
                 Button(action: appState.isPlaying ? api.pausePlayback: api.resumePlayback, label: {
                     Image(systemName: AppState.shared.isPlaying ? "pause.circle.fill": "play.circle.fill").resizable()
                 }).frame(width: 70, height: 70, alignment: .center)
@@ -85,6 +90,7 @@ struct MusicPlayerView: View {
                     .background(appState.runStarted ? Color.red: Color.green )
                     .cornerRadius(25)
                     .offset(y: 10)
+
             }
         }
     }
@@ -103,8 +109,7 @@ struct MapView: View {
             .onAppear(perform: {
                 viewModel.checkIfLocationServicesIsEnabled()
             })
-            Text(String(describing: viewModel.speed))
-
+            Text("\(String(viewModel.speed))")
         }
     }
 }

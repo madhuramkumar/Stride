@@ -21,8 +21,7 @@ enum mapDetails {
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion(center: mapDetails.startingLocation, span: mapDetails.defaultSpan) // how zoomed out you want map to be
     @Published var speed = 0.0
-//    let lineCoordinates: [CLLocation]
-//    let polyline = MKPolyline(coordinates: lineCoordinates, count: lineCoordinates.count)
+    @Published var lineCoordinates: [CLLocationCoordinate2D] = []
     
     var locationManager : CLLocationManager? // anything to do with user location goes through CLLLocationManager
     
@@ -33,6 +32,13 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         } else {
             print("Show an alert prompting them to go to settings and turn this on.")
         }
+    }
+    
+    func lineView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+      let renderer = MKPolylineRenderer(overlay: overlay)
+      renderer.strokeColor = .blue
+      renderer.lineWidth = 3.0
+      return renderer
     }
     
     // deals with different LocationAuthorization cases
@@ -74,6 +80,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(center: myLocation, span: span)
             self.speed = latestLocation.speed
+            self.lineCoordinates.append(myLocation)
         }
     }
     

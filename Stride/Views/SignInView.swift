@@ -4,10 +4,7 @@
 //
 //  Created by Madhu Ramkumar on 5/11/23.
 //
-
 import SwiftUI
-
-
 struct SignInView: View {
     var body: some View {
         VStack {
@@ -36,15 +33,15 @@ struct SignInView: View {
                             .stroke(Color.white, lineWidth: 2)
                 )
             }
-            .background(Color.green) 
+            .background(Color.green)
             .cornerRadius(25)
         }
     }
 }
-
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         SignInView()
             .frame(height: 12.0)
     }
 }
+

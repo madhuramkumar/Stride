@@ -2,63 +2,49 @@
 //  SaveRunView.swift
 //  Stride
 //
-//  Created by Madhu Ramkumar on 6/26/23.
+//  Created by Madhu Ramkumar on 7/7/23.
 //
-
 import SwiftUI
-
 struct SaveRunView: View {
-    let api = APIManager()
+    @EnvironmentObject private var store: Store
     @StateObject var appState = AppState.shared
+    @State private var nameText: String = ""
+    @State private var distanceText: String = ""
+    @State private var dateField: Date = Date()
+    
     var body: some View {
-        VStack {
-            Text("Would you like to save this workout playlist to your library?")
-            HStack {
-                Button(action: {
-                    print("playlist saved to spotify library")
-                    api.createPlaylist()
+        NavigationView {
+            Form {
+                TextField("Name your workout!", text: $nameText)
+                TextField("Distance", text: $distanceText)
+                DatePicker(selection: $dateField, displayedComponents: .date) {
+                    Text("Date")
+                }
+            }
+            .navigationTitle("Workout Details")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                trailing: Button(action: {
+                    let workout = Workout(
+                        name: self.nameText,
+                        distance: self.distanceText,
+                        date: self.dateField
+                    )
+                    store.dispatch(action: .addWorkout(workout))
                     DispatchQueue.main.async {
                         appState.saveRunComplete = true
                     }
                 }) {
-                    Text("Yes")
-                        .frame(minWidth: 0, maxWidth: 200)
-                        .font(.system(size: 18))
-                        .padding()
-                        .foregroundColor(.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
+                    Text("Save Run")
                 }
-                .background(Color.green)
-                .cornerRadius(25)
-            }
-            
-            Button(action: {
-                print("playlist not saved")
-                DispatchQueue.main.async {
-                    appState.saveRunComplete = true
-                }
-            }) {
-                Text("No")
-                    .frame(minWidth: 0, maxWidth: 200)
-                    .font(.system(size: 18))
-                    .padding()
-                    .foregroundColor(.white)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(Color.white, lineWidth: 2)
-                    )
-            }
-            .background(Color.red)
-            .cornerRadius(25)
+                .disabled(nameText.isEmpty)
+            )
         }
     }
 }
-
 struct SaveRunView_Previews: PreviewProvider {
     static var previews: some View {
         SaveRunView()
     }
 }
+

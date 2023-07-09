@@ -4,9 +4,7 @@
 //
 //  Created by Madhu Ramkumar on 5/11/23.
 //
-
 import SwiftUI
-
 class AppState: ObservableObject {
     static let shared = AppState()
     let defaults = UserDefaults.standard
@@ -14,10 +12,11 @@ class AppState: ObservableObject {
     @Published var inputDetailsComplete: Bool = false
     @Published var runStarted: Bool = false
     @Published var runStopped: Bool = false
+    @Published var savePlaylistComplete: Bool = false
     @Published var saveRunComplete: Bool = false
+    
     @Published var isPlaying: Bool = false
 }
-
 @main
 struct StrideApp: App {
     @StateObject var appState = AppState.shared
@@ -41,12 +40,11 @@ struct StrideApp: App {
                     appState.oauthComplete = false
                     appState.inputDetailsComplete = false
                     appState.runStopped = false
-                    appState.saveRunComplete = false
+                    appState.savePlaylistComplete = false
                 })
         }
     }
 }
-
 struct ContentView: View {
     @StateObject var appState = AppState.shared
     var body: some View {
@@ -66,19 +64,25 @@ struct ContentView: View {
         } else if (appState.runStopped == false ) {
             WorkoutView()
         // if workout has been ended, allow user to save run
+        } else if (appState.savePlaylistComplete == false) {
+            SavePlaylistView()
+        // if saving has been completed, go back to landing page and reset all states except false so user can start another workout if wanted
         } else if (appState.saveRunComplete == false) {
             SaveRunView()
-        // if saving has been completed, go back to landing page and reset all states except false so user can start another workout if wanted
+                .environmentObject(Store.shared)
         } else {
             LandingPageView()
                 .onAppear(perform: {
                     appState.inputDetailsComplete = false
                     appState.runStarted = false
                     appState.runStopped = false
+                    appState.savePlaylistComplete = false
                     appState.saveRunComplete = false
                     appState.isPlaying = false
+                    APIManager.shared.resetAllVariables()
                 })
         }
     }
 }
+
 

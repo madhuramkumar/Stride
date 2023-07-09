@@ -10,7 +10,6 @@ import Foundation
 import SwiftUI
 import SpotifyiOS
 
-
 struct RecommendationSeedObject: Codable, Hashable {
     var href: String
     var id: String
@@ -105,7 +104,6 @@ class APIManager: ObservableObject {
     // for playback
     var deviceID: String = ""
     var userID: String = ""
-
     // for when only endpoint is in url
     func fetchAPI(_ endpoint: String, _ method: String) -> URLRequest {
         
@@ -138,7 +136,6 @@ class APIManager: ObservableObject {
     func getUserID() {
         let request = fetchAPI("me", "GET")
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-
             if let data = data, error == nil {
                 if let response = response as? HTTPURLResponse {
                     if (response.statusCode == 200) {
@@ -219,7 +216,6 @@ class APIManager: ObservableObject {
         }
         let request = fetchAPI(url, "GET")
         let task = URLSession.shared.dataTask(with: request ) { data, response, error in
-
             // print out data for debugging purposes
             if let data = data {
                 if let dataString = String(data: data, encoding: .utf8) {
@@ -230,7 +226,6 @@ class APIManager: ObservableObject {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-
             if let response = response as? HTTPURLResponse {
                 if (response.statusCode == 200) {
                     // assigns response JSON to UserTopArtists struct
@@ -250,14 +245,12 @@ class APIManager: ObservableObject {
         }
         task.resume()
     }
-
     // helper function to put JSON into a string
     func convertSeedArtistsToString(_ artists: [ArtistObject]) {
         for seed in artists {
             seedArtists += seed.id + ","
         }
     }
-
     // generates seed tracks for getRecommendations endpoint based on users top tracks
     func generateSeedTracks() {
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/top/artists")!
@@ -275,12 +268,10 @@ class APIManager: ObservableObject {
                     print("got dataString: \n\(dataString)")
                 }
             }
-
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-
             if let response = response as? HTTPURLResponse {
                 if (response.statusCode == 200) {
                     // assigns response JSON to UserTopArtists struct
@@ -300,19 +291,16 @@ class APIManager: ObservableObject {
         }
         task.resume()
     }
-
     // helper function to put JSON into a string
     func convertSeedTracksToString(_ tracks: [TrackObject]) {
         for seed in tracks {
             seedTracks += seed.id + ","
         }
     }
-
     func numSongs() -> Double {
         if (workoutTime == "") {
             fatalError("workout time did not initialize!!")
         }
-
         let num = round(Double(workoutTime)! / 3.5)
         if num <= 100 {
             return num
@@ -321,7 +309,6 @@ class APIManager: ObservableObject {
             return 100.0
         }
     }
-
     func getSongRecommendations() {
         // create URL for API request
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/recommendations")!
@@ -336,7 +323,6 @@ class APIManager: ObservableObject {
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
-
         // create API Request
         let request = fetchAPI(url, "GET")
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -346,12 +332,10 @@ class APIManager: ObservableObject {
                     print("got dataString: \n\(dataString)")
                 }
             }
-
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-
             if let response = response as? HTTPURLResponse {
                 if (response.statusCode == 200) {
                     // assigns response JSON to UserTopArtists struct
@@ -371,23 +355,20 @@ class APIManager: ObservableObject {
         }
         task.resume()
     }
-
     func convertRecommendedTracksToArray(_ recTracks: [TrackObject]) {
         for seed in recTracks {
             recommendedTracks.append("spotify:track:\(seed.id)")
         }
     }
-
     // PLAYBACK FUNCTIONS
     func startPlayback() {
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/play")!
-        urlComponents.queryItems = [// body
-            URLQueryItem(name: "device_id", value: deviceID), // might cause problems, check
-        ] // have to supply the iphone device id, otherwise it wont play
+//        urlComponents.queryItems = [// body
+//            URLQueryItem(name: "device_id", value: deviceID), // might cause problems, check
+//        ] // have to supply the iphone device id, otherwise it wont play
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
-
         // create API Request
         var request = fetchAPI(url, "PUT")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -402,7 +383,6 @@ class APIManager: ObservableObject {
         }
         task.resume()
     }
-
     func pausePlayback() {
         let deviceID = UserDefaults.standard.string(forKey: "deviceID")
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/pause")!
@@ -412,7 +392,6 @@ class APIManager: ObservableObject {
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
-
         // create API Request
         let request = fetchAPI(url, "PUT")
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
@@ -423,7 +402,6 @@ class APIManager: ObservableObject {
         }
         task.resume()
     }
-
     func resumePlayback() {
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/play")!
         urlComponents.queryItems = [// body
@@ -453,7 +431,6 @@ class APIManager: ObservableObject {
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
-
         // create API Request
         let request = fetchAPI(url, "POST")
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
@@ -464,7 +441,6 @@ class APIManager: ObservableObject {
         }
         task.resume()
     }
-
     func skipToNext() {
         let deviceID = UserDefaults.standard.string(forKey: "deviceID")
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/next")!
@@ -474,7 +450,6 @@ class APIManager: ObservableObject {
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
-
         // create API Request
         let request = fetchAPI(url, "POST")
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
@@ -485,18 +460,17 @@ class APIManager: ObservableObject {
         }
         task.resume()
     }
-
 //    // can be used to make progress bar / scrubber
 //    func getPlaybackState() {
 //        let request = fetchAPI("me/player", "GET")
 //        let task = URLSession.shared.dataTask(with: request) { data, response, error in
 //            if let data = data, error == nil {
-//                
+//
 //                // print out data for debugging purposes
 //                if let dataString = String(data: data, encoding: .utf8) {
 //                    print("got dataString: \n\(dataString)")
 //                }
-//                
+//
 //                if let response = response as? HTTPURLResponse {
 //                    if (response.statusCode == 200) {
 //                        // assigns response JSON to UserTopArtists struct
@@ -520,7 +494,6 @@ class APIManager: ObservableObject {
 //        }
 //        task.resume()
 //    }
-
     // create playlist of recommended songs whose length = specified workout time
     func createPlaylist() {
         var request = fetchAPI("/users/\(userID)/playlists", "POST")
@@ -602,6 +575,7 @@ class APIManager: ObservableObject {
     func resetAllVariables() {
         seedArtists = ""
         seedTracks = ""
-        recommendedTracks = []   
+        recommendedTracks = []
     }
 }
+

@@ -4,13 +4,11 @@
 //
 //  Created by Madhu Ramkumar on 5/27/23.
 //
-
 import SwiftUI
 import CoreLocationUI
 import CoreMotion
 import MapKit
 import SpotifyiOS
-
 struct TrackDetails: Hashable, Codable {
     var name: String
     var artist: String
@@ -34,7 +32,6 @@ struct WorkoutView: View {
         }
     }
 }
-
 struct MusicPlayerView: View {
     let api = APIManager.shared
     @StateObject var appState = AppState.shared
@@ -58,7 +55,6 @@ struct MusicPlayerView: View {
                 Button(action: appState.isPlaying ? api.pausePlayback: api.resumePlayback, label: {
                     Image(systemName: AppState.shared.isPlaying ? "pause.circle.fill": "play.circle.fill").resizable()
                 }).frame(width: 70, height: 70, alignment: .center)
-
                 Button(action: api.skipToNext, label: {
                     Image(systemName: "arrow.right.circle").resizable()
                 }).frame(width: 70, height: 70, alignment: .center)
@@ -90,21 +86,17 @@ struct MusicPlayerView: View {
                     .background(appState.runStarted ? Color.red: Color.green )
                     .cornerRadius(25)
                     .offset(y: 10)
-
             }
         }
     }
 }
-
 struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
-
     var body: some View {
         ZStack(alignment: .bottom) {
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true) // binds region variable
                 .ignoresSafeArea() // gets rid of map white space at top and bottom
                 .tint(.red) // color of location marker
-
             // when map view opens, location authorization automatically begins
             .onAppear(perform: {
                 viewModel.checkIfLocationServicesIsEnabled()
@@ -113,9 +105,9 @@ struct MapView: View {
         }
     }
 }
-
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView()
     }
 }
+

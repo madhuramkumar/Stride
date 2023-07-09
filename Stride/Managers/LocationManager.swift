@@ -4,7 +4,6 @@
 //
 //  Created by Madhu Ramkumar on 6/1/23.
 //
-
 import Foundation
 import CoreLocationUI
 import CoreMotion
@@ -75,7 +74,6 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let myLocation = CLLocationCoordinate2D(latitude: latestLocation.coordinate.latitude, longitude: latestLocation.coordinate.longitude)
-
         // updated our region. since its a published variable, its UI changes will be monitored
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(center: myLocation, span: span)
@@ -90,8 +88,4 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     }
     
 }
-
-
-
-
 

@@ -4,9 +4,7 @@
 //
 //  Created by Madhu Ramkumar on 5/27/23.
 //
-
 import SwiftUI
-
 struct WorkoutDetailsView: View {
     @StateObject private var api = APIManager.shared
     @StateObject var appState = AppState.shared
@@ -66,9 +64,9 @@ struct WorkoutDetailsView: View {
             
     }
 }
-
 struct WorkoutDetailsView_Previews: PreviewProvider {
     static var previews: some View {
             WorkoutDetailsView()
     }
 }
+

@@ -30,7 +30,6 @@ class AuthorizationManager: ObservableObject {
     
     @Published var token: String = ""
     @Published var tokenExpirationTime: Date?
-
     func login() {
         // Define the URL with parameters
         var urlComponents = URLComponents(string: "https://accounts.spotify.com/authorize")!
@@ -185,8 +184,6 @@ class AuthorizationManager: ObservableObject {
         }
         task.resume()
     }
-
-
     func extractCode(from url: URL) -> String? {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
               let queryItems = components.queryItems,
@@ -197,14 +194,12 @@ class AuthorizationManager: ObservableObject {
         return codeItem.value
     }
     
-
     func extractState(from url: URL) -> String? {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
               let queryItems = components.queryItems,
               let stateItem = queryItems.first(where: { $0.name == "state" }) else {
             return nil
         }
-
         return stateItem.value
     }
 }

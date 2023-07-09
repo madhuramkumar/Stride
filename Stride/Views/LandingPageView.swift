@@ -4,9 +4,7 @@
 //
 //  Created by Madhu Ramkumar on 6/26/23.
 //
-
 import SwiftUI
-
 struct LandingPageView: View {
     var body: some View {
         TabView {
@@ -18,12 +16,14 @@ struct LandingPageView: View {
                 .tabItem {
                     Label("Run Log", systemImage: "list.bullet")
                 }
+                .environmentObject(Store.shared)
         }
     }
 }
-
 struct LandingPageView_Previews: PreviewProvider {
     static var previews: some View {
         LandingPageView()
     }
 }
+
+

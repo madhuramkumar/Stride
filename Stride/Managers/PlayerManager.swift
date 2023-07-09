@@ -15,14 +15,14 @@
 //}
 //
 //class SpotifyController: NSObject, ObservableObject {
-//    
-//    
+//
+//
 //    let auth = AuthorizationManager.authManager
 //    @Published var trackDetails: Track?
 //
 //    private var connectCancellable: AnyCancellable?
 //    private var disconnectCancellable: AnyCancellable?
-//    
+//
 //    override init() {
 //        super.init()
 //        connectCancellable = NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
@@ -30,7 +30,7 @@
 //            .sink { _ in
 //                self.connect()
 //            }
-//        
+//
 //        disconnectCancellable = NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
 //            .receive(on: DispatchQueue.main)
 //            .sink { _ in
@@ -38,29 +38,29 @@
 //            }
 //
 //    }
-//    
+//
 //    lazy var configuration = SPTConfiguration(
 //        clientID: AuthConstants.clientID,
 //        redirectURL: URL(string: "Stride://")!
 //    )
-//    
+//
 //    lazy var appRemote: SPTAppRemote = {
 //        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
 //        appRemote.connectionParameters.accessToken = auth.token
 //        appRemote.delegate = self
 //        return appRemote
 //    }() // IS THIS CORRECT?
-//    
+//
 //    func connect() {
 //        appRemote.connect()
 //    }
-//    
+//
 //    func disconnect() {
 //        if appRemote.isConnected {
 //            appRemote.disconnect()
 //        }
 //    }
-//    
+//
 //}
 //
 //extension SpotifyController: SPTAppRemoteDelegate {
@@ -72,14 +72,14 @@
 //            if let error = error {
 //                debugPrint(error.localizedDescription)
 //            }
-//            
+//
 //        })
 //    }
-//    
+//
 //    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
 //        print("failed")
 //    }
-//    
+//
 //    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
 //        print("disconnected")
 //    }
@@ -91,6 +91,8 @@
 //        trackDetails?.artist = playerState.track.artist.name
 //    }
 //}
+//
+//
 //
 //
 //

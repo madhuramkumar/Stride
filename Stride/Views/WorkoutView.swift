@@ -14,7 +14,7 @@ struct TrackDetails: Hashable, Codable {
     var artist: String
 }
 struct WorkoutView: View {
-    @State var appRemote: SPTAppRemote?
+    @EnvironmentObject private var map: MapViewModel
     let api = APIManager.shared
     var body: some View {
         VStack {
@@ -28,12 +28,17 @@ struct WorkoutView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(.red, lineWidth: 4)
                 )
+                .environmentObject(map)
+            NavBarView()
+                .environmentObject(map)
             MusicPlayerView()
+                .environmentObject(map)
         }
     }
 }
 struct MusicPlayerView: View {
     let api = APIManager.shared
+    @EnvironmentObject var map: MapViewModel
     @StateObject var appState = AppState.shared
     var body: some View {
         VStack {
@@ -65,12 +70,14 @@ struct MusicPlayerView: View {
                 if appState.runStarted {
                     api.pausePlayback()
                     DispatchQueue.main.async {
+                        map.stopRun()
                         appState.runStopped = true
                     }
                 } else {
                     api.startPlayback()
                     DispatchQueue.main.async {
-                        appState.runStarted = true
+                        map.startRun()
+                        appState.runStarted = true 
                     }
                 }
             }) {
@@ -90,24 +97,52 @@ struct MusicPlayerView: View {
         }
     }
 }
-struct MapView: View {
-    @StateObject private var viewModel = MapViewModel()
+
+struct NavBarView: View {
+    @EnvironmentObject var map: MapViewModel
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true) // binds region variable
-                .ignoresSafeArea() // gets rid of map white space at top and bottom
-                .tint(.red) // color of location marker
-            // when map view opens, location authorization automatically begins
-            .onAppear(perform: {
-                viewModel.checkIfLocationServicesIsEnabled()
-            })
-            Text("\(String(viewModel.speed))")
+        HStack {
+            VStack {
+                Image(systemName: "speedometer").resizable()
+                    .frame(width: 30, height: 30)
+                Text("\(map.speed, specifier: "%.2f")")
+            }
+            VStack {
+                Image(systemName: "figure.run").resizable()
+                    .frame(width: 30, height: 30)
+                Text("\(map.totalDistance, specifier: "%.2f")")
+            }
+            VStack {
+                Image(systemName: "timer").resizable()
+                    .frame(width: 30, height: 30)
+                Text("\(map.hours):\(map.minutes):\(map.seconds)")
+            }
         }
     }
 }
+
+struct MapView: View {
+    @EnvironmentObject var map: MapViewModel
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            VStack {
+                Map(coordinateRegion: $map.region, showsUserLocation: true) // binds region variable
+                    .ignoresSafeArea() // gets rid of map white space at top and bottom
+                    .tint(.red) // color of location marker
+                // when map view opens, location authorization automatically begins
+                .onAppear(perform: {
+                    map.checkIfLocationServicesIsEnabled()
+                })
+            }
+
+        }
+    }
+}
+    
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView()
     }
 }
+    
 

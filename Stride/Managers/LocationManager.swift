@@ -20,7 +20,20 @@ enum mapDetails {
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion(center: mapDetails.startingLocation, span: mapDetails.defaultSpan) // how zoomed out you want map to be
     @Published var speed = 0.0
-    @Published var lineCoordinates: [CLLocationCoordinate2D] = []
+    var startLocation: CLLocation!
+    var lastLocation: CLLocation!
+    var allSpeeds: [Double] = []
+    
+    // run info
+    @Published var totalDistance = 0.0
+    @Published var isRunning = false
+    @Published var averageSpeed = 0.0
+    
+    // timer info
+    @Published var timer: Timer? = nil
+    @Published var hours: Int = 0
+    @Published var minutes: Int = 0
+    @Published var seconds: Int = 0
     
     var locationManager : CLLocationManager? // anything to do with user location goes through CLLLocationManager
     
@@ -72,14 +85,79 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             return
         }
         
+        if isRunning {
+            if self.startLocation == nil {
+                self.startLocation = locations.first!
+            } else {
+                let lastLocation = locations.last!
+                let distance = self.startLocation.distance(from: lastLocation)
+                self.startLocation = lastLocation
+                self.totalDistance += self.distanceToMiles(distance)
+            }
+        }
+    
+        
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let myLocation = CLLocationCoordinate2D(latitude: latestLocation.coordinate.latitude, longitude: latestLocation.coordinate.longitude)
         // updated our region. since its a published variable, its UI changes will be monitored
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(center: myLocation, span: span)
-            self.speed = latestLocation.speed
-            self.lineCoordinates.append(myLocation)
+            self.speed = self.speedToMinutesPerMile(latestLocation.speed)
+            self.allSpeeds.append(self.speed)
         }
+    }
+
+    func calcAverageSpeed() {
+        var arraySum = self.allSpeeds.reduce(0, +)
+        var length = self.allSpeeds.count
+        var average = Double(arraySum)/Double(length)
+        averageSpeed = roundTo(average)
+    }
+    
+    func speedToMinutesPerMile(_ speed: Double) -> Double {
+        return speed / 26.82
+    }
+    
+    func distanceToMiles(_ distance: Double) -> Double {
+        return distance * 0.000621371
+    }
+    
+    func roundTo(_ num: Double) -> Double {
+        return (num * 100) / 100.0
+    }
+    
+    func startRun() {
+        isRunning = true;
+        startTimer()
+    }
+    
+    func stopRun() {
+        isRunning = false;
+        stopTimer()
+        calcAverageSpeed()
+    }
+    
+    func startTimer() {
+        // 1. Make a new timer
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
+          // 2. Check time to add to H:M:S
+          if self.seconds == 59 {
+            self.seconds = 0
+            if self.minutes == 59 {
+              self.minutes = 0
+              self.hours = self.hours + 1
+            } else {
+              self.minutes = self.minutes + 1
+            }
+          } else {
+            self.seconds = self.seconds + 1
+          }
+        }
+    }
+    
+    func stopTimer() {
+      timer?.invalidate()
+      timer = nil
     }
     
     // prints error if location manager catches a fail
@@ -87,5 +165,14 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         print (error)
     }
     
+    func resetAllVariables() {
+        self.hours = 0
+        self.minutes = 0
+        self.seconds = 0
+        self.totalDistance = 0.0
+        self.startLocation = nil
+        self.lastLocation = nil
+        self.isRunning = false
+    }
 }
 

@@ -18,6 +18,13 @@ struct RunDetails: Hashable, Codable, Identifiable {
 //    var mapImage: MKMapSnapshotter.Snapshot
 }
 
+func dateFormat(_ date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd MMM yyyy"
+    dateFormatter.locale = .init(identifier: "en_GB")
+    return dateFormatter.string(from: date)
+}
+
 struct RunListView: View {
     @EnvironmentObject var store: Store
     @State private var isAddingMode: Bool = false
@@ -34,6 +41,7 @@ struct RunListView: View {
         }
     }
 }
+
 struct ListView: View {
     @EnvironmentObject var store: Store
     var body: some View {
@@ -52,6 +60,8 @@ struct ListView: View {
         }
     }
 }
+
+
 struct RunDetailsView: View {
     let workout: Workout
     var body: some View {
@@ -61,10 +71,10 @@ struct RunDetailsView: View {
                     .font(.largeTitle)
                     .padding()
                 HStack {
-                    Text(DateFormatter().string(from: workout.date))
+                    Text(dateFormat(workout.date))
                         .font(.subheadline)
                         .foregroundColor(Color.gray)
-                    Text("[BPMS OF RUN]")
+                    Text("\(workout.averageBPM) BPM")
                 }
                 
             }.offset(y: -150)
@@ -78,19 +88,19 @@ struct RunDetailsView: View {
                     Image(systemName: "speedometer")
                         .resizable()
                         .frame(width: 30, height: 30)
-                    Text("[X MINUTE PER MILE]")
+                    Text("Distance: \(workout.speed, specifier: "%.2f") mins / mile")
                 }
                 VStack {
                     Image(systemName: "mappin")
                         .resizable()
                         .frame(width: 30, height: 30)
-                    Text("[DISTANCE]")
+                    Text("\(workout.distance, specifier: "%.2f") miles")
                 }
                 VStack {
                     Image(systemName: "timer")
                         .resizable()
                         .frame(width: 30, height: 30)
-                    Text("[TOTAL TIME]")
+                    Text("\(workout.timeHrs):\(workout.timeMins):\(workout.timeSecs)")
                 }
             }
             // playlistInfo
@@ -103,17 +113,18 @@ struct RunRowView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(workout.name)
-                Text("Distance: " + workout.distance + "miles")
+                Text("Distance: \(workout.distance, specifier: "%.2f") miles")
                     .font(.subheadline)
             }
             Spacer()
             VStack(alignment: .leading) {
-                Text(DateFormatter().string(from: workout.date))
+                Text(dateFormat(workout.date))
             }
         }
         .padding()
     }
 }
+
 struct TrailingView: View {
     @EnvironmentObject var store: Store
     var body: some View {

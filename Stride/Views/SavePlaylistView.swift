@@ -11,13 +11,13 @@ struct SavePlaylistView: View {
     @StateObject var appState = AppState.shared
     var body: some View {
         VStack {
-            Text("Would you like to save this workout playlist to your library?")
+            Text("Would you like to save this workout to your library?")
             HStack {
                 Button(action: {
                     print("playlist saved to spotify library")
                     api.createPlaylist()
                     DispatchQueue.main.async {
-                        appState.savePlaylistComplete = true
+                        appState.wantsToSaveScreen = true
                     }
                 }) {
                     Text("Yes")
@@ -37,7 +37,8 @@ struct SavePlaylistView: View {
             Button(action: {
                 print("playlist not saved")
                 DispatchQueue.main.async {
-                    appState.savePlaylistComplete = true
+                    appState.wantsToSaveScreen = true
+                    appState.saveRunComplete = true
                 }
             }) {
                 Text("No")

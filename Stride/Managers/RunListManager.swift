@@ -9,22 +9,31 @@ import SwiftUI
 struct Workout: Identifiable {
     let id: UUID = .init()
     let name: String
-    let distance: String
+    let distance: Double
+    let timeHrs: Int
+    let timeMins: Int
+    let timeSecs: Int
+    let speed: Double
+    let averageBPM: Int
     let date: Date
 }
+
 struct WorkoutState {
     var workouts: [Workout]
     var sortType: SortType?
 }
+
 enum SortType {
     case date
     case distance
 }
+
 enum Action {
     case addWorkout(_ workout: Workout) // adds a workout
     case removeWorkout(at: IndexSet) // removes item at the provided index
     case sort(by: SortType) // sorts list by specified sorting type
 }
+
 func reducer(state: WorkoutState, action: Action) -> WorkoutState {
     var state = state
     switch action {
@@ -44,6 +53,7 @@ func reducer(state: WorkoutState, action: Action) -> WorkoutState {
     }
     return state
 }
+
 // whenever state value is changed, swift UI wil recieve notifications.
 final class Store: ObservableObject {
     static let shared = Store()

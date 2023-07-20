@@ -28,7 +28,7 @@ struct WorkoutDetailsView: View {
             
             Form {
                 Section {
-                    TextField("Enter your desired minimum bpm", text: $api.minBPM )
+                    TextField("Enter your desired minimum bpm", text: $api.minBPM)
                         .keyboardType(.numberPad)
                     TextField("Enter your desired maximum bpm", text: $api.maxBPM)
                         .keyboardType(.numberPad)

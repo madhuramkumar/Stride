@@ -133,6 +133,13 @@ class APIManager: ObservableObject {
         return request
     }
     
+    func calcAverageBPM() -> Int {
+        let minBPM = Double(minBPM) ?? 0
+        let maxBPM = Double(maxBPM) ?? 0
+        let averageBPM = (minBPM + maxBPM) / 2
+        return Int(round(averageBPM))
+    }
+    
     func getUserID() {
         let request = fetchAPI("me", "GET")
         let task = URLSession.shared.dataTask(with: request) { data, response, error in

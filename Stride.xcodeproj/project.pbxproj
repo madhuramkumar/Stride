@@ -12,6 +12,7 @@
 		29A6A84F2A5B68D1009C9570 /* RunListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A84E2A5B68D1009C9570 /* RunListManager.swift */; };
 		29A6A8512A5B6B25009C9570 /* AuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A8502A5B6B25009C9570 /* AuthConstants.swift */; };
 		29A6A8572A68E80B009C9570 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A8562A68E80B009C9570 /* SplashScreenView.swift */; };
+		29A6A8592A6F0FF1009C9570 /* MyAuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A8582A6F0FF1009C9570 /* MyAuthConstants.swift */; };
 		29B6724D2A282710008A4C22 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B6724C2A282710008A4C22 /* APIManager.swift */; };
 		29B672542A290A40008A4C22 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672532A290A40008A4C22 /* LocationManager.swift */; };
 		29B672562A2A6616008A4C22 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672552A2A6616008A4C22 /* AuthorizationManager.swift */; };
@@ -71,6 +72,7 @@
 		29A6A84E2A5B68D1009C9570 /* RunListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunListManager.swift; sourceTree = "<group>"; };
 		29A6A8502A5B6B25009C9570 /* AuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConstants.swift; sourceTree = "<group>"; };
 		29A6A8562A68E80B009C9570 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		29A6A8582A6F0FF1009C9570 /* MyAuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAuthConstants.swift; sourceTree = "<group>"; };
 		29B6724C2A282710008A4C22 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		29B672532A290A40008A4C22 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		29B672552A2A6616008A4C22 /* AuthorizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				29B672532A290A40008A4C22 /* LocationManager.swift */,
 				29B6724C2A282710008A4C22 /* APIManager.swift */,
 				29A6A8412A54E1DF009C9570 /* PlayerManager.swift */,
+				29A6A8582A6F0FF1009C9570 /* MyAuthConstants.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				29A6A8512A5B6B25009C9570 /* AuthConstants.swift in Sources */,
 				29BA75142A22E72A00ADA280 /* WorkoutView.swift in Sources */,
 				29B672762A4A2EE8008A4C22 /* LandingPageView.swift in Sources */,
+				29A6A8592A6F0FF1009C9570 /* MyAuthConstants.swift in Sources */,
 				29B672652A3500C0008A4C22 /* CacheEntryObject.swift in Sources */,
 				29A6A8572A68E80B009C9570 /* SplashScreenView.swift in Sources */,
 				29B672562A2A6616008A4C22 /* AuthorizationManager.swift in Sources */,

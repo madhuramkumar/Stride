@@ -134,10 +134,10 @@ struct MapView: View {
                     map.checkIfLocationServicesIsEnabled()
                 })
             }
-
         }
     }
 }
+
     
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {

@@ -68,18 +68,21 @@ struct SaveRunView: View {
                     }
                 } label: {
                     Text("Time")
+                        .bold()
                 }
                 LabeledContent {
-                    TextField("miles / hr", value: $speedField, format: .number)
+                    TextField("mins / mile", value: $speedField, format: .number)
                         .onAppear(perform: {
                             speedField = map.averageSpeed
                         })
                         .keyboardType(.numberPad)
                 } label: {
-                    Text("Speed (miles / hr)")
+                    Text("Speed (mins / mile)")
+                        .bold()
                 }
                 DatePicker(selection: $dateField, displayedComponents: .date) {
                     Text("Date")
+                        .bold()
                 }
             }
             .navigationTitle(nameText)

@@ -35,6 +35,10 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var minutes: Int = 0
     @Published var seconds: Int = 0
     
+    // Polyline
+    @Published var polyline: MKPolyline?
+    var polylineCoords: [CLLocationCoordinate2D] = []
+    
     var locationManager : CLLocationManager? // anything to do with user location goes through CLLLocationManager
     
     func checkIfLocationServicesIsEnabled() {
@@ -99,12 +103,30 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let myLocation = CLLocationCoordinate2D(latitude: latestLocation.coordinate.latitude, longitude: latestLocation.coordinate.longitude)
+        
+        // Add the new location to the polyline to track the user's route
+        polylineCoords.append(latestLocation.coordinate)
+        polyline = MKPolyline(coordinates: polylineCoords, count: polylineCoords.count)
+        
         // updated our region. since its a published variable, its UI changes will be monitored
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(center: myLocation, span: span)
             self.speed = self.speedToMinutesPerMile(latestLocation.speed)
             self.allSpeeds.append(self.speed)
+            self.mapView.add
+
         }
+    }
+    
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+
+       if overlay is MKPolyline {
+           var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+           polylineRenderer.strokeColor = UIColor(white: 300, alpha: 300)
+           polylineRenderer.lineWidth = 2
+           return polylineRenderer
+       }
+       return nil
     }
 
     func calcAverageSpeed() {

@@ -263,7 +263,7 @@ class APIManager: ObservableObject {
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/top/artists")!
         urlComponents.queryItems = [// body
             URLQueryItem(name: "limit", value: "1")
-        ] // have to supply the iphone device id, otherwise it wont play
+        ]
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
@@ -370,9 +370,9 @@ class APIManager: ObservableObject {
     // PLAYBACK FUNCTIONS
     func startPlayback() {
         var urlComponents = URLComponents(string: "https://api.spotify.com/v1/me/player/play")!
-//        urlComponents.queryItems = [// body
-//            URLQueryItem(name: "device_id", value: deviceID), // might cause problems, check
-//        ] // have to supply the iphone device id, otherwise it wont play
+        urlComponents.queryItems = [// body
+            URLQueryItem(name: "device_id", value: deviceID), // might cause problems, check
+        ] // have to supply the iphone device id, otherwise it wont play
         guard let url = urlComponents.url else {
             fatalError("Missing URL!")
         }
@@ -501,14 +501,16 @@ class APIManager: ObservableObject {
 //        }
 //        task.resume()
 //    }
+    
     // create playlist of recommended songs whose length = specified workout time
     func createPlaylist() {
-        var request = fetchAPI("/users/\(userID)/playlists", "POST")
+        let id = UserDefaults.standard.string(forKey: "userID")!
+        var request = fetchAPI("users/\(id)/playlists", "POST")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body: [String: Any] = ["name": "test"] // might cause problems, check
+        let body: [String: Any] = ["name": "\(minBPM) - \(maxBPM) BPM workout"]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
         
-        var id = ""
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
             if let data = data, error == nil {
                 // print out data for debugging purposes
@@ -518,13 +520,13 @@ class APIManager: ObservableObject {
                 
                 // handle response
                 if let response = response as? HTTPURLResponse {
-                    if (response.statusCode == 200) {
+                    if (response.statusCode == 201) {
                         // assigns response JSON to UserTopArtists struct
                         guard let playlist = try? JSONDecoder().decode(Playlist.self, from: data) else {
                             print("Error Decoding Playlist Details from JSON")
                             return
                         }
-                        id = playlist.id
+                        self.addToPlaylist(playlist.id)
                         print("Playlist created.")
                     } else {
                         guard let errorInfo = try? JSONDecoder().decode(Error.self, from: data) else {
@@ -539,7 +541,6 @@ class APIManager: ObservableObject {
             }
         }
         task.resume()
-        addToPlaylist(id)
     }
     
     func addToPlaylist(_ id: String) {
@@ -547,6 +548,9 @@ class APIManager: ObservableObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let body: [String: Any] = ["uris": recommendedTracks] // might cause problems, check
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        print(request.httpMethod!)
+        print(request.allHTTPHeaderFields!)
+        print(request.httpBody!)
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
             print("Playlist created.")
             if let data = data, error == nil {

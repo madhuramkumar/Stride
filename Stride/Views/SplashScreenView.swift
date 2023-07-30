@@ -37,6 +37,7 @@ struct SplashScreenView: View {
                     AuthorizationManager.authManager.refreshAuthentication()
                 } else {
                     AuthorizationManager.authManager.token = KeychainManager.standard.read(service: KeychainManager.standard.service, account: KeychainManager.standard.account, type: Auth.self)!.accessToken
+                    print(KeychainManager.standard.read(service: KeychainManager.standard.service, account: KeychainManager.standard.account, type: Auth.self)!)
                 }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {

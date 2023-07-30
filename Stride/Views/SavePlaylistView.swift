@@ -11,7 +11,7 @@ struct SavePlaylistView: View {
     @StateObject var appState = AppState.shared
     var body: some View {
         VStack {
-            Text("Would you like to save this workout to your library?")
+            Text("Would you like to save this workout and playlist to your library?")
             HStack {
                 Button(action: {
                     print("playlist saved to spotify library")

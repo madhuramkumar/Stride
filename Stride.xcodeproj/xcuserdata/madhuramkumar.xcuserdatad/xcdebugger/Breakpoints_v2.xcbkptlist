@@ -3,4 +3,415 @@
    uuid = "D6EE3571-022F-4A90-BB95-406619BC5A8A"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "77AAFAB0-0C14-4CEC-BA8F-8406D8D3CD20"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "546"
+            endingLineNumber = "546"
+            landmarkName = "addToPlaylist(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "39A631AC-516A-4459-B5D6-21AAC78B877B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "addToPlaylist(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "39A631AC-516A-4459-B5D6-21AAC78B877B - c2b8cbc791c79b29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APIManager.addToPlaylist(Swift.String) -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "548"
+                  endingLineNumber = "548"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "39A631AC-516A-4459-B5D6-21AAC78B877B - c2b8cbc791c79b6f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APIManager.addToPlaylist(Swift.String) -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "546"
+                  endingLineNumber = "546"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "39A631AC-516A-4459-B5D6-21AAC78B877B - c2b8cbc791c79beb"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APIManager.addToPlaylist(Swift.String) -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "550"
+                  endingLineNumber = "550"
+                  offsetFromSymbolStart = "288">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B13CE269-494D-49DA-86DE-DD5F378EBAFA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
+            landmarkName = "gatherData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "583CE0C1-6FEE-4755-A81F-CDDE2B6F697E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
+            landmarkName = "gatherData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "583CE0C1-6FEE-4755-A81F-CDDE2B6F697E - b61cd81925f59561"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APIManager.gatherData() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "578"
+                  endingLineNumber = "578"
+                  offsetFromSymbolStart = "1668">
+               </Location>
+               <Location
+                  uuid = "583CE0C1-6FEE-4755-A81F-CDDE2B6F697E - b61cd81925f59561"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APIManager.gatherData() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "578"
+                  endingLineNumber = "578"
+                  offsetFromSymbolStart = "1252">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8CF61170-0C8E-4FE2-9254-32B58897FC8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "createPlaylist()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8CF61170-0C8E-4FE2-9254-32B58897FC8A - 7162c1876455440"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "519"
+                  endingLineNumber = "519"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  uuid = "8CF61170-0C8E-4FE2-9254-32B58897FC8A - 7162c1876455440"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "519"
+                  endingLineNumber = "519"
+                  offsetFromSymbolStart = "512">
+               </Location>
+               <Location
+                  uuid = "8CF61170-0C8E-4FE2-9254-32B58897FC8A - 7162c187645546f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "520"
+                  endingLineNumber = "520"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  uuid = "8CF61170-0C8E-4FE2-9254-32B58897FC8A - 7162c187645546f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "520"
+                  endingLineNumber = "520"
+                  offsetFromSymbolStart = "512">
+               </Location>
+               <Location
+                  uuid = "8CF61170-0C8E-4FE2-9254-32B58897FC8A - 7162c1876455482"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "517"
+                  endingLineNumber = "517"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  uuid = "8CF61170-0C8E-4FE2-9254-32B58897FC8A - 7162c1876455482"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "517"
+                  endingLineNumber = "517"
+                  offsetFromSymbolStart = "512">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6731AEC2-38BA-4A4F-BB4F-A22BEB0ED746"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "555"
+            endingLineNumber = "555"
+            landmarkName = "addToPlaylist(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14882279-09A3-43AB-8680-F94C1794710D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
+            landmarkName = "createPlaylist()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "14882279-09A3-43AB-8680-F94C1794710D - 7162c187645558a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "525"
+                  endingLineNumber = "525"
+                  offsetFromSymbolStart = "916">
+               </Location>
+               <Location
+                  uuid = "14882279-09A3-43AB-8680-F94C1794710D - 7162c187645558a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "525"
+                  endingLineNumber = "525"
+                  offsetFromSymbolStart = "1104">
+               </Location>
+               <Location
+                  uuid = "14882279-09A3-43AB-8680-F94C1794710D - 7162c187645542d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "522"
+                  endingLineNumber = "522"
+                  offsetFromSymbolStart = "916">
+               </Location>
+               <Location
+                  uuid = "14882279-09A3-43AB-8680-F94C1794710D - 7162c187645542d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Stride.APIManager.createPlaylist() -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "522"
+                  endingLineNumber = "522"
+                  offsetFromSymbolStart = "1104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1CDB4B53-97FC-44BE-8FB0-BFAB38A1E28F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/Managers/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
+            landmarkName = "addToPlaylist(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1CDB4B53-97FC-44BE-8FB0-BFAB38A1E28F - c2b8cbc791c79b08"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APIManager.addToPlaylist(Swift.String) -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "549"
+                  endingLineNumber = "549"
+                  offsetFromSymbolStart = "852">
+               </Location>
+               <Location
+                  uuid = "1CDB4B53-97FC-44BE-8FB0-BFAB38A1E28F - c2b8cbc791c79b08"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stride.APIManager.addToPlaylist(Swift.String) -&gt; ()"
+                  moduleName = "Stride"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhuramkumar/UMICH/summer-project/Stride/Stride/Managers/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "549"
+                  endingLineNumber = "549"
+                  offsetFromSymbolStart = "996">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BCEEBAE5-0ED6-4D46-B15D-EF9F4907361A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stride/StrideApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

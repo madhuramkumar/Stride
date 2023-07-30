@@ -113,21 +113,20 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             self.region = MKCoordinateRegion(center: myLocation, span: span)
             self.speed = self.speedToMinutesPerMile(latestLocation.speed)
             self.allSpeeds.append(self.speed)
-            self.mapView.add
 
         }
     }
-    
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-
-       if overlay is MKPolyline {
-           var polylineRenderer = MKPolylineRenderer(overlay: overlay)
-           polylineRenderer.strokeColor = UIColor(white: 300, alpha: 300)
-           polylineRenderer.lineWidth = 2
-           return polylineRenderer
-       }
-       return nil
-    }
+//
+//    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+//
+//       if overlay is MKPolyline {
+//           var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+//           polylineRenderer.strokeColor = UIColor(white: 300, alpha: 300)
+//           polylineRenderer.lineWidth = 2
+//           return polylineRenderer
+//       }
+//       return nil
+//    }
 
     func calcAverageSpeed() {
         var arraySum = self.allSpeeds.reduce(0, +)

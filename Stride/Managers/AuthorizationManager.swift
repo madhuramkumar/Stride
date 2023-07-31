@@ -184,6 +184,7 @@ class AuthorizationManager: ObservableObject {
         }
         task.resume()
     }
+    
     func extractCode(from url: URL) -> String? {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
               let queryItems = components.queryItems,

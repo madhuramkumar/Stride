@@ -5,7 +5,6 @@
 //  Created by Madhu Ramkumar on 5/31/23.
 //
 
-//import SpotifyiOS
 import Foundation
 import SwiftUI
 import SpotifyiOS
@@ -104,6 +103,7 @@ class APIManager: ObservableObject {
     // for playback
     var deviceID: String = ""
     var userID: String = ""
+    
     // for when only endpoint is in url
     func fetchAPI(_ endpoint: String, _ method: String) -> URLRequest {
         
@@ -546,7 +546,8 @@ class APIManager: ObservableObject {
     func addToPlaylist(_ id: String) {
         var request = fetchAPI("playlists/\(id)/tracks", "POST")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body: [String: Any] = ["uris": recommendedTracks] // might cause problems, check
+        let tracks = recommendedTracks
+        let body: [String: Any] = ["uris": tracks] // might cause problems, check
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         print(request.httpMethod!)
         print(request.allHTTPHeaderFields!)

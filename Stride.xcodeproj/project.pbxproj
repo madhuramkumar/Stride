@@ -16,7 +16,6 @@
 		29B6724D2A282710008A4C22 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B6724C2A282710008A4C22 /* APIManager.swift */; };
 		29B672542A290A40008A4C22 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672532A290A40008A4C22 /* LocationManager.swift */; };
 		29B672562A2A6616008A4C22 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672552A2A6616008A4C22 /* AuthorizationManager.swift */; };
-		29B672652A3500C0008A4C22 /* CacheEntryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672642A3500C0008A4C22 /* CacheEntryObject.swift */; };
 		29B672672A350161008A4C22 /* CacheImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672662A350161008A4C22 /* CacheImplementation.swift */; };
 		29B672692A3BFB75008A4C22 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B672682A3BFB75008A4C22 /* KeychainManager.swift */; };
 		29B6726F2A4426EC008A4C22 /* RunListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B6726E2A4426EC008A4C22 /* RunListView.swift */; };
@@ -76,8 +75,6 @@
 		29B6724C2A282710008A4C22 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		29B672532A290A40008A4C22 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		29B672552A2A6616008A4C22 /* AuthorizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
-		29B672582A2A6BF7008A4C22 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
-		29B672642A3500C0008A4C22 /* CacheEntryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheEntryObject.swift; sourceTree = "<group>"; };
 		29B672662A350161008A4C22 /* CacheImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheImplementation.swift; sourceTree = "<group>"; };
 		29B672682A3BFB75008A4C22 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		29B6726E2A4426EC008A4C22 /* RunListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunListView.swift; sourceTree = "<group>"; };
@@ -144,7 +141,6 @@
 		29B672602A350072008A4C22 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				29B672642A3500C0008A4C22 /* CacheEntryObject.swift */,
 				29B672662A350161008A4C22 /* CacheImplementation.swift */,
 			);
 			path = Cache;
@@ -191,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				29BA74CA2A0DEF8300ADA280 /* StrideApp.swift */,
-				29B672582A2A6BF7008A4C22 /* WorkoutSession.swift */,
 				29B672602A350072008A4C22 /* Cache */,
 				29B6724E2A282760008A4C22 /* Views */,
 				29BA74F42A0DEF9A00ADA280 /* Info.plist */,
@@ -369,7 +364,6 @@
 				29BA75142A22E72A00ADA280 /* WorkoutView.swift in Sources */,
 				29B672762A4A2EE8008A4C22 /* LandingPageView.swift in Sources */,
 				29A6A8592A6F0FF1009C9570 /* MyAuthConstants.swift in Sources */,
-				29B672652A3500C0008A4C22 /* CacheEntryObject.swift in Sources */,
 				29A6A8572A68E80B009C9570 /* SplashScreenView.swift in Sources */,
 				29B672562A2A6616008A4C22 /* AuthorizationManager.swift in Sources */,
 				29A6A8422A54E1DF009C9570 /* PlayerManager.swift in Sources */,

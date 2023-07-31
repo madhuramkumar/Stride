@@ -56,11 +56,7 @@ struct SavePlaylistView: View {
         }
     }
 }
-//struct NamePlaylistView: View {
-//    var body: some View {
-//
-//    }
-//}
+
 struct SavePlaylistView_Previews: PreviewProvider {
     static var previews: some View {
         SavePlaylistView()

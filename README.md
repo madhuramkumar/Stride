@@ -1,14 +1,6 @@
 # Stride
 Stride is an iOS application that employs [Spotify’s Web API](https://developer.spotify.com/documentation/web-api) to create and play a personalized workout playlist matching user-specified BPM ranges, workout times, and tastes from past listening history. The app displays a map view with the average pace of run or walk as well as audio controls.
 
-/Users/madhuramkumar/UMICH/summer-project/Stride/SplashScreen.png
-/Users/madhuramkumar/UMICH/summer-project/Stride/Simulator Screenshot - iPhone 14 Pro Max - 2023-07-24 at 13.40.08.png
-/Users/madhuramkumar/UMICH/summer-project/Stride/Simulator Screenshot - iPhone 14 Pro Max - 2023-07-24 at 13.40.35.png
-/Users/madhuramkumar/UMICH/summer-project/Stride/Simulator Screenshot - iPhone 14 Pro Max - 2023-07-24 at 13.41.12.png
-/Users/madhuramkumar/UMICH/summer-project/Stride/Simulator Screenshot - iPhone 14 Pro Max - 2023-07-24 at 13.41.33.png
-/Users/madhuramkumar/UMICH/summer-project/Stride/Simulator Screenshot - iPhone 14 Pro Max - 2023-07-24 at 13.41.38.png
-
-
 ## Features
 * Customized workout playlist based on user-selected BPM and workout time 
 * In-app music player with play, pause, back, and skip buttons for convenient music playback.
